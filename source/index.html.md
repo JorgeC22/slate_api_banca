@@ -461,7 +461,7 @@ fecha_fin | string | Fecha fin para filtrado de movimientos hasta esta fecha, se
 
 ## Listado de Transferencias Pendientes
 
-```curl
+```shell
 curl -X GET \
 	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
 	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
@@ -570,6 +570,161 @@ id_cuenta | int | Identificador que se obtiene del servicio de Cuentas de ahorro
 page | int | Identificador para mostrar la página en la que estemos situados, de acuerdo a la cantidad de registros que se obtengan.
 registros | int | Número de registros a recuperar, si no se coloca por default trae 20.
 
+## Transacción uno a uno
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+'<URL>/<contexto>/1.0.0/v2/guardar-transacciones'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio para hacer transacciones de la cuenta de ahorro a otra cuenta.
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
+importe | int | Es el monto a dispersar.
+cuenta_destino | int | Cuenta destino.
+codigo_banco | int | El código del banco a seleccionar, deben de ser 3 dígitos, se obtiene del servicio de Catálogo de bancos, valor del nodo “nombre”.
+guarda_cuenta_destino | boolean | Si la transacción es correcta guardará la cuenta para futuras transacciones, true para guardar, false para no guardar los datos.
+nombre_beneficiario | string | Nombre del Beneficiario.
+rfc_beneficiario | string | RFC del Beneficiario.
+email_beneficiario | string | Email del Beneficiario.
+concepto | string | Concepto de la transacción
+no_referencia | int | Número de referencia de la transacción.
+api_key | string | API Key generada para la cuenta de ahorro.
+codigo_trasaccional | string | Código generado por el cliente
+soft_token | string | Código generado en aplicativo AQPayToken
+
+<aside class="success">
+Nota: Toda tx instruida, posteriormente debe ser autorizada con el siguiente servicio /1.0.0/v2/ordenes-importador
+</aside>
+
+
+## Transacción Masiva
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/importador-transacciones-json'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio para hacer transacciones masivas de la cuenta de ahorro a otras cuentas.
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
+codigo_seguridad | int | Código generado por el cliente.
+soft_token | int | Código generado en aplicativo AQPayToken.
+api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usar codigo_seguridad y soft_token).
+id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
+json_transacciones | json | Ejemplo de json:
+[{
+"cuenta_destino":"000000000100000104",
+"importe":"0.02",
+"concepto":"Demo",
+"nombre_beneficiario":"Alejandro",
+"rfc_beneficiario":"GOZH920615000",
+"email_beneficiario":"demo@alquimiapay.com",
+"no_referencia":"101010",
+"concepto_2":"na",
+"id_externo":"101001"
+},{
+"cuenta_destino":"000000000100000105",
+"importe":"0.02",
+"concepto":"Demo2",
+"nombre_beneficiario":"Alejandro",
+"rfc_beneficiario":"GOZH920615001",
+"email_beneficiario":"demo@alquimiapay.com",
+"no_referencia":"101011",
+"concepto_2":"na",
+"id_externo":"101002"
+}]
+
+## Autorizar Transacciones Pendientes
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/ordenes-importador'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio para autorizar las transacciones pendientes, una vez autorizada en automático procede la  dispersión a la cuenta destino.
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+id_transaccion | int | Identificador que se obtiene del servicio de Listado de Transferencias pendientes, se pueden enviar múltiples id de transacciones separados por coma sin espacios.
+ejemplo: 15896,15855,78966
+accion | int | 1 => Autoriza las transacciones, \n 2 => Elimina las transacciones
+id_cuenta | int | Id de la cuenta donde se realizaron las transacciones pendientes, se obtiene del servicios  Cuentas de ahorro del cliente.
+api_key | string | API Key generada para la cuenta de ahorro.
 
 
 # Limite

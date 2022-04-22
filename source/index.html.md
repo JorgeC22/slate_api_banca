@@ -227,21 +227,79 @@ registros | int | Número de registros a recuperar, si no se coloca por default 
 
 ## Saldo cuenta ahorro
 
-```curl
+```shell
 curl -X GET \
         -H 'Authorization: Bearer <ACCESS_TOKEN>' \
         -H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
         -H 'Content-Type: x-www-form-urlencoded' \
         '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente'
 ```
+
+```javascript
+  var settings = {
+      "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/saldo-cuenta-ahorro?no_cuenta=659803000000268539",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0...",
+        "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc",
+        "Cookie": "PHPSESSID=p717sabrei6i5bh0cd1ls8mp9j; _csrf=3883678d3c7b60ec16816e4d09b1540c021c50d0fb985f1b37092030911dce8ba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22h7bRXZMuadEYJoZ0T29NeN-JFLHv8Hg9%22%3B%7D"
+      },
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+```
+
+```php
+  <?php
+
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/saldo-cuenta-ahorro?no_cuenta=659803000000268539',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0k...',
+      'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+      'Cookie: PHPSESSID=p717sabrei6i5bh0cd1ls8mp9j; _csrf=3883678d3c7b60ec16816e4d09b1540c021c50d0fb985f1b37092030911dce8ba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22h7bRXZMuadEYJoZ0T29NeN-JFLHv8Hg9%22%3B%7D'
+    ),
+  ));
+
+  $response = curl_exec($curl);
+
+  curl_close($curl);
+  echo $response;
+```
+
+```python
+  import http.client
+
+  conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+  payload = ''
+  headers = {
+    'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwW...'
+  }
+  conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/saldo-cuenta-ahorro?no_cuenta=659803000000268539", payload, headers)
+  res = conn.getresponse()
+  data = res.read()
+  print(data.decode("utf-8"))
+```
+
 > Respuesta:
 
 ```json
-{
- "error": false,
- "saldo": "0.00"
-}
-
+  {
+    "error": false,
+    "saldo": "0.00"
+  }
 ```
 
 Servicio para consultar el saldo de la cuenta de ahorro en base a la cuenta clabe emparejada.
@@ -257,7 +315,8 @@ Parametro | Tipo | Descripción
 no_cuenta | int | No. de cuenta CLABE emparejada a la cuenta de ahorro.
 
 ## Movimientos
-```curl
+
+```shell
 curl -X GET \
 	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
 	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
@@ -265,65 +324,124 @@ curl -X GET \
 	'<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente/<id_cuenta ahorro>/transaccion'
 ```
 
+```javascript
+  var settings = {
+      "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0",
+        "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc",
+        "Cookie": "PHPSESSID=supdni5b0nond7a5qplb05ekbg; _csrf=faca80f7edd07185c1f935caa79846ba1bc4f0b3b98ad8331c5776a9f9b322daa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YL3vqG9ODyuPHYjMWSi5kwShasjgWxAM%22%3B%7D"
+      },
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+```
+
+```php
+  <?php
+
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwW',
+      'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+      'Cookie: PHPSESSID=supdni5b0nond7a5qplb05ekbg; _csrf=faca80f7edd07185c1f935caa79846ba1bc4f0b3b98ad8331c5776a9f9b322daa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YL3vqG9ODyuPHYjMWSi5kwShasjgWxAM%22%3B%7D'
+    ),
+  ));
+
+  $response = curl_exec($curl);
+
+  curl_close($curl);
+  echo $response;
+```
+
+```python
+  import http.client
+
+  conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+  payload = ''
+  headers = {
+    'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWX...',
+    'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Cookie': 'PHPSESSID=supdni5b0nond7a5qplb05ekbg; _csrf=faca80f7edd07185c1f935caa79846ba1bc4f0b3b98ad8331c5776a9f9b322daa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YL3vqG9ODyuPHYjMWSi5kwShasjgWxAM%22%3B%7D'
+  }
+  conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion", payload, headers)
+  res = conn.getresponse()
+  data = res.read()
+  print(data.decode("utf-8"))
+```
+
 > Respuesta:
 
 ```json
-{
- "id_transaccion": 1234,
- "id_cuenta_ahorro": 123,
- "id_medio_pago": 4,
- "id_producto_ahorro": 56,
- "id_cliente": 123,
- "id_instructor": null,
- "tipo_movimiento": 31,
- "numero_cuenta": null,
- "numero_empleado": null,
- "empresa": null,
- "fecha_operacion": "2022-04-05",
- "tipo_cargo": 1,
- "monto": "0.02",
- "iva": "0.00",
- "tipo_operacion": -1,
- "medio_pago": null,
- "medio_pago_concepto": null,
- "medio_pago_clave_rastreo": null,
- "medio_pago_cuenta_origen": null,
- "medio_pago_cuenta_destino": null,
- "medio_pago_estatus": null,
- "descripcion_operacion_cliente": null,
- "responsable_transaccion": null,
- "referencia_numerica_cuenta_ahorro_cliente_medio_pago": null,
- "valor_real": -0.02,
- "fecha_alta": "2022-04-05 16:34:13",
- "fecha_actualizacion": "2022-04-05 16:34:13",
- "estatus_debito": 0,
- "concepto": "test_status",
- "descripcion": null,
- "tipo_string": null,
- "tipo_movimiento_string": null,
- "moneda": null,
- "fecha_consumo": null,
- "id_movimiento_proveedor": null,
- "transaccion_conciliada": 0,
- "estatus_transaccion": 4,
- "observaciones": "{\"folio_orden\":\"323340672842181\"}",
- "tipo_transaccion": 0,
- "cuenta_origen": null,
- "id_establecimiento": null,
- "id_categoria": null,
- "clave_rastreo": "AQPAY002022040516341122497830",
- "id_cuenta_ahorro_medio_pago": 0,
- "tipo_alerta": 2,
- "concepto_otro": null,
- "cnxn_remesa": 0,
- "is_paycash": "0",
- "data_paycash": false,
- "categoria": null,
- "establecimiento": null,
- "imagen_medio_pago": "https://demomatic.alquimiadigital.mx/cpanel/index.php/api/v1/imagen/12387"
-}
-
-````
+  {
+  "id_transaccion": 1234,
+  "id_cuenta_ahorro": 123,
+  "id_medio_pago": 4,
+  "id_producto_ahorro": 56,
+  "id_cliente": 123,
+  "id_instructor": null,
+  "tipo_movimiento": 31,
+  "numero_cuenta": null,
+  "numero_empleado": null,
+  "empresa": null,
+  "fecha_operacion": "2022-04-05",
+  "tipo_cargo": 1,
+  "monto": "0.02",
+  "iva": "0.00",
+  "tipo_operacion": -1,
+  "medio_pago": null,
+  "medio_pago_concepto": null,
+  "medio_pago_clave_rastreo": null,
+  "medio_pago_cuenta_origen": null,
+  "medio_pago_cuenta_destino": null,
+  "medio_pago_estatus": null,
+  "descripcion_operacion_cliente": null,
+  "responsable_transaccion": null,
+  "referencia_numerica_cuenta_ahorro_cliente_medio_pago": null,
+  "valor_real": -0.02,
+  "fecha_alta": "2022-04-05 16:34:13",
+  "fecha_actualizacion": "2022-04-05 16:34:13",
+  "estatus_debito": 0,
+  "concepto": "test_status",
+  "descripcion": null,
+  "tipo_string": null,
+  "tipo_movimiento_string": null,
+  "moneda": null,
+  "fecha_consumo": null,
+  "id_movimiento_proveedor": null,
+  "transaccion_conciliada": 0,
+  "estatus_transaccion": 4,
+  "observaciones": "{\"folio_orden\":\"323340672842181\"}",
+  "tipo_transaccion": 0,
+  "cuenta_origen": null,
+  "id_establecimiento": null,
+  "id_categoria": null,
+  "clave_rastreo": "AQPAY002022040516341122497830",
+  "id_cuenta_ahorro_medio_pago": 0,
+  "tipo_alerta": 2,
+  "concepto_otro": null,
+  "cnxn_remesa": 0,
+  "is_paycash": "0",
+  "data_paycash": false,
+  "categoria": null,
+  "establecimiento": null,
+  "imagen_medio_pago": "https://demomatic.alquimiadigital.mx/cpanel/index.php/api/v1/imagen/12387"
+  }
+```
 
 Servicio para listar los movimientos hechos por la cuenta de ahorro del cliente
 
@@ -349,6 +467,67 @@ curl -X GET \
 	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
 	-H 'Content-Type: x-www-form-urlencoded' \
 	'<URL>/<contexto>/1.0.0/v2/ordenes-importador?expand=datos'
+```
+
+```javascript
+  var settings = {
+      "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=676&page=1&registros=100",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3h...",
+        "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc",
+        "Cookie": "PHPSESSID=pk5cmstrrcoa5n7300s3moipcj; _csrf=9b0a1d6b9297ee5d40a1835890fedabc6a3a143b007f95e9b1b751d3070a3524a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22a6REI4SEULyukrrBxgMhOvMd_8uPtdvH%22%3B%7D"
+      },
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+```
+
+```php
+  <?php
+
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=676&page=1&registros=100',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3...',
+      'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+      'Cookie: PHPSESSID=pk5cmstrrcoa5n7300s3moipcj; _csrf=9b0a1d6b9297ee5d40a1835890fedabc6a3a143b007f95e9b1b751d3070a3524a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22a6REI4SEULyukrrBxgMhOvMd_8uPtdvH%22%3B%7D'
+    ),
+  ));
+
+  $response = curl_exec($curl);
+
+  curl_close($curl);
+  echo $response;
+```
+
+```python
+  import http.client
+
+  conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+  payload = 'cuenta_origen=676&id_cliente=18202&medio_pago=4&importe=0.02&cuenta_destino=659803000000189265&codigo_banco=014&guarda_cuenta_destino=true&nombre_beneficiario=Hail%20Alejandro%20Gonzalez&rfc_beneficiario=NA&email_beneficiario=hgonzalez%2Bqa%40alquimiapay.com&concepto=test_status&no_referencia=100119&api_key=test_status'
+  headers = {
+    'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l...',
+    'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Cookie': 'PHPSESSID=nbg3njeo8rnmptijknr8i10730; _csrf=ce964e283ac56ab7ed0ca72574e151e598340656bf8abf0e81b9b285105f79c9a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C8Wv0icOny4Ec1EJ2I-PMQyB-Qa6cqQz%22%3B%7D'
+  }
+  conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/guardar-transacciones", payload, headers)
+  res = conn.getresponse()
+  data = res.read()
+  print(data.decode("utf-8"))
 ```
 
 > Respuesta:

@@ -26,4 +26,4 @@ COPY . /srv/slate
 RUN chmod +x /srv/slate/slate.sh
 
 ENTRYPOINT ["/srv/slate/slate.sh"]
-CMD ["bundle", "exec", "middleman", "server"]
+CMD ["build"]

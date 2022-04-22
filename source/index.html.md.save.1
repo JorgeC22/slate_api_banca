@@ -1,0 +1,395 @@
+---
+title: API Reference
+
+language_tabs: # must be one of https://git.io/vQNgJ
+  - shell
+  - ruby
+  - python
+  - javascript
+
+toc_footers:
+  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+
+includes:
+  - errors
+
+search: true
+
+code_clipboard: true
+
+meta:
+  - name: description
+    content: Documentation for the Kittn API
+---
+
+# Introducción
+
+La API AlquimiaPay expone una serie de métodos enfocados en instruir y autorizar operaciones financieras, 
+además de consultas de información, e instrucción de otras funcionalidades.
+
+### Métodos de autenticación 
+Para invocar los servicios de la API, es indispensable generar dos tokens:
+
+* Token API Manager, con vigencia de 10 minutos
+* Token AlquimiaPay, con vigencia de 24 horas
+
+
+# URL de la API
+
+`https://wso2.alquimiapay.com/`
+
+### Contexto Pruebas
+
+`/sanboxalquimiapay/`
+
+### Contexto Producción
+
+`/apialquimiapay/`
+
+
+Toda referencia a **<URL_BASE>** o **<URL>** deberá ser sustituida por dicha URL según sea el caso, pruebas o productivo. 
+Asi mismo las referencias <contexto> deberán ser sustituidas por dicho contexto según sea el caso`
+
+
+# Generación de token de Api Manager
+
+> Entorno Producción:
+
+```shell
+curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H 
+"Authorization: Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>"
+```
+> Entorno Pruebas:
+
+```shell
+curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H 
+"Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+```
+
+Para generar el token de Api Manager se realiza mediante un request con las credenciales y URL descrita para este propósito. 
+Al generar el token este servirá para enviarlo en la cabecera Authorization con el valor Bearer **<ACCESS_TOKEN>**, con esto, 
+los servicios de consumo del api en general podrán responder de forma adecuada ya que funciona como un login. 
+
+
+
+### Http Request
+
+`POST https://wso2.alquimiapay.com/token`
+
+# Token Alquimia
+
+> Entorno Producción:
+
+```shell
+curl -k -X POST https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token 
+-d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>"
+```
+> Entorno Pruebas:
+
+```shell
+curl -k -X POST https://demomatic.alquimiadigital.mx/cpanel/index.php/api/oauth2/token 
+-d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>" 
+```
+
+Para la generación del Token Alquimia, es necesario contar con credenciales de inicio de sesión y haber restablecido la 
+contraseña de la banca por primera vez.
+
+### URL de la Banca
+
+* Demo: `https://demomatic.alquimiadigital.mx`
+* Producción: `https://banca.alquimiapay.com`
+
+
+### Http request
+
+`POST /cpanel/index.php/api/oauth2/token`
+
+
+
+# Servicios
+
+## Cuentas de ahorro del cliente
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+	-H 'Content-Type: x-www-form-urlencoded' \	
+	'<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente'
+```
+
+Servicio para listar las cuentas, saldos y estados de cuentas del cliente.
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id_cliente | int | Identificador del cliente, se obtiene del servicio Perfil del usuario.
+page | int | Identificador para mostrar la página en la que estemos situados, de acuerdo a la cantidad de registros que se obtengan.
+registros | int | Número de registros a recuperar, si no se coloca por default trae 20.
+
+
+## Saldo cuenta ahorro
+
+```shell
+curl -X GET \
+        -H 'Authorization: Bearer <ACCESS_TOKEN>' \
+        -H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+        -H 'Content-Type: x-www-form-urlencoded' \
+        '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente'
+```
+> Respuesta:
+
+```json
+{
+	"id_cuenta_ahorro": 12345,
+ "id_cliente": 12345,
+ "nombre_cliente": "NOMBRE DEL USUARIO",
+ "id_producto_ahorro_empresa": 123,
+ "saldo_ahorro": 0,
+ "fecha_alta": "2022-02-08 13:42:53",
+ "fecha_actualizacion": "2022-02-08 13:42:53",
+ "activo": 0,
+ "aplica_liquidacion": 0,
+ "no_cuenta": "0000000000000001",
+ "fecha_actualizacion_movimientos": null,
+ "tarjeta_id": 0,
+ "retiro_pendiente": "0.00",
+ "cuenta_eje": null,
+ "cuenta_clabe": null,
+ "nombre_centro_costos": null,
+ "tipo_persona": "Persona Física",
+ "tipo_persona_int": 0,
+ "fondeador_stp_id": 0,
+ "alias": null,
+ "id_cuenta_ahorro_padre": null,
+ "nombre_empresa": "EJEMPLO.COM SA DE CV",
+ "_links":{"self":{"href": "http://vitae.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/12345"…}
+}
+```
+
+
+Servicio para consultar el saldo de la cuenta de ahorro en base a la cuenta clabe emparejada.
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+no_cuenta | int | No. de cuenta CLABE emparejada a la cuenta de ahorro.
+
+
+
+
+
+# Limite
+> To authorize, use this code:
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+```
+
+```shell
+# With shell, you can just pass the correct header with each request
+curl "api_endpoint_here" \
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+```
+
+> Make sure to replace `meowmeowmeow` with your API key.
+
+Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+
+Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Authorization: meowmeowmeow`
+
+<aside class="notice">
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+
+# Kittens
+
+## Get All Kittens
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+api.kittens.get
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+api.kittens.get()
+```
+
+```shell
+curl "http://example.com/api/kittens" \
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+let kittens = api.kittens.get();
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Fluffums",
+    "breed": "calico",
+    "fluffiness": 6,
+    "cuteness": 7
+  },
+  {
+    "id": 2,
+    "name": "Max",
+    "breed": "unknown",
+    "fluffiness": 5,
+    "cuteness": 10
+  }
+]
+```
+
+This endpoint retrieves all kittens.
+
+### HTTP Request
+
+`GET http://example.com/api/kittens`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+include_cats | false | If set to true, the result will also include cats.
+available | true | If set to false, the result will include kittens that have already been adopted.
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+## Get a Specific Kitten
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+api.kittens.get(2)
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+api.kittens.get(2)
+```
+
+```shell
+curl "http://example.com/api/kittens/2" \
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+let max = api.kittens.get(2);
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 2,
+  "name": "Max",
+  "breed": "unknown",
+  "fluffiness": 5,
+  "cuteness": 10
+}
+```
+
+This endpoint retrieves a specific kitten.
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+### HTTP Request
+
+`GET http://example.com/kittens/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the kitten to retrieve
+
+## Delete a Specific Kitten
+
+```ruby
+require 'kittn'
+
+api = Kittn::APIClient.authorize!('meowmeowmeow')
+api.kittens.delete(2)
+```
+
+```python
+import kittn
+
+api = kittn.authorize('meowmeowmeow')
+api.kittens.delete(2)
+```
+
+```shell
+curl "http://example.com/api/kittens/2" \
+  -X DELETE \
+  -H "Authorization: meowmeowmeow"
+```
+
+```javascript
+const kittn = require('kittn');
+
+let api = kittn.authorize('meowmeowmeow');
+let max = api.kittens.delete(2);
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 2,
+  "deleted" : ":("
+}
+```
+
+This endpoint deletes a specific kitten.
+
+### HTTP Request
+
+`DELETE http://example.com/kittens/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the kitten to delete
+

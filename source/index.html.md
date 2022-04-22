@@ -2,7 +2,7 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - curl
+  - shell
   - python
   - javascript
   - php
@@ -48,28 +48,28 @@ Para invocar los servicios de la API, es indispensable generar dos tokens:
 `/apialquimiapay/`
 
 
-Toda referencia a **<URL_BASE>** o **<URL>** deberá ser sustituida por dicha URL según sea el caso, pruebas o productivo. 
-Asi mismo las referencias <contexto> deberán ser sustituidas por dicho contexto según sea el caso`
+Toda referencia a **URL_BASE** o **URL** deberá ser sustituida por dicha URL según sea el caso, pruebas o productivo. 
+Asi mismo las referencias **contexto** deberán ser sustituidas por dicho contexto según sea el caso`
 
 
 # Generación de token de Api Manager
 
 > Entorno Producción:
 
-```curl
-curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H 
-"Authorization: Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>"
+```shell
+  curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H \
+  "Authorization: Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>"
 ```
 
 > Entorno Pruebas:
 
-```curl
-curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H 
-"Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+```shell
+  curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H \
+  "Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
 ```
 
 Para generar el token de Api Manager se realiza mediante un request con las credenciales y URL descrita para este propósito. 
-Al generar el token este servirá para enviarlo en la cabecera Authorization con el valor Bearer **<ACCESS_TOKEN>**, con esto, 
+Al generar el token este servirá para enviarlo en la cabecera Authorization con el valor Bearer **ACCESS_TOKEN**, con esto, 
 los servicios de consumo del api en general podrán responder de forma adecuada ya que funciona como un login. 
 
 
@@ -82,15 +82,15 @@ los servicios de consumo del api en general podrán responder de forma adecuada 
 
 > Entorno Producción:
 
-```curl
-curl -k -X POST https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token 
--d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>"
+```shell
+  curl -k -X POST https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token \
+  -d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>"
 ```
 > Entorno Pruebas:
 
-```curl
-curl -k -X POST https://demomatic.alquimiadigital.mx/cpanel/index.php/api/oauth2/token 
--d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>" 
+```shell
+  curl -k -X POST https://demomatic.alquimiadigital.mx/cpanel/index.php/api/oauth2/token \
+  -d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>" 
 ```
 
 Para la generación del Token Alquimia, es necesario contar con credenciales de inicio de sesión y haber restablecido la 
@@ -112,12 +112,12 @@ contraseña de la banca por primera vez.
 
 ## Cuentas de ahorro del cliente
 
-```curl
-curl -X GET \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-	-H 'Content-Type: x-www-form-urlencoded' \	
-	'<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente'
+```shell
+  curl -X GET \
+    -H 'Authorization: Bearer <ACCESS_TOKEN>' \
+    -H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+    -H 'Content-Type: x-www-form-urlencoded' \	
+    '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente'
 ```
 
 ```javascript

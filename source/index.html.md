@@ -476,7 +476,7 @@ curl -X GET \
       "timeout": 0,
       "headers": {
         "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3h...",
-        "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc",
+        "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
         "Cookie": "PHPSESSID=pk5cmstrrcoa5n7300s3moipcj; _csrf=9b0a1d6b9297ee5d40a1835890fedabc6a3a143b007f95e9b1b751d3070a3524a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22a6REI4SEULyukrrBxgMhOvMd_8uPtdvH%22%3B%7D"
       },
     };
@@ -520,7 +520,7 @@ curl -X GET \
   payload = 'cuenta_origen=676&id_cliente=18202&medio_pago=4&importe=0.02&cuenta_destino=659803000000189265&codigo_banco=014&guarda_cuenta_destino=true&nombre_beneficiario=Hail%20Alejandro%20Gonzalez&rfc_beneficiario=NA&email_beneficiario=hgonzalez%2Bqa%40alquimiapay.com&concepto=test_status&no_referencia=100119&api_key=test_status'
   headers = {
     'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l...',
-    'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+    'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
     'Content-Type': 'application/x-www-form-urlencoded',
     'Cookie': 'PHPSESSID=nbg3njeo8rnmptijknr8i10730; _csrf=ce964e283ac56ab7ed0ca72574e151e598340656bf8abf0e81b9b285105f79c9a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C8Wv0icOny4Ec1EJ2I-PMQyB-Qa6cqQz%22%3B%7D'
   }
@@ -581,12 +581,82 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldO...",
+      "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "PHPSESSID=nbg3njeo8rnmptijknr8i10730; _csrf=ce964e283ac56ab7ed0ca72574e151e598340656bf8abf0e81b9b285105f79c9a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C8Wv0icOny4Ec1EJ2I-PMQyB-Qa6cqQz%22%3B%7D"
+    },
+    "data": {
+      "cuenta_origen": "676",
+      "id_cliente": "18202",
+      "medio_pago": "4",
+      "importe": "0.02",
+      "cuenta_destino": "659803000000189265",
+      "codigo_banco": "014",
+      "guarda_cuenta_destino": "true",
+      "nombre_beneficiario": "Hail Alejandro Gonzalez",
+      "rfc_beneficiario": "NA",
+      "email_beneficiario": "hgonzalez+qa@alquimiapay.com",
+      "concepto": "test_status",
+      "no_referencia": "100119",
+      "api_key": "test_status"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=676&id_cliente=18202&medio_pago=4&importe=0.02&cuenta_destino=659803000000189265&codigo_banco=014&guarda_cuenta_destino=true&nombre_beneficiario=Hail%20Alejandro%20Gonzalez&rfc_beneficiario=NA&email_beneficiario=hgonzalez%2Bqa%40alquimiapay.com&concepto=test_status&no_referencia=100119&api_key=test_status',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+    'Content-Type: application/x-www-form-urlencoded',
+    'Cookie: PHPSESSID=nbg3njeo8rnmptijknr8i10730; _csrf=ce964e283ac56ab7ed0ca72574e151e598340656bf8abf0e81b9b285105f79c9a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C8Wv0icOny4Ec1EJ2I-PMQyB-Qa6cqQz%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=676&id_cliente=18202&medio_pago=4&importe=0.02&cuenta_destino=659803000000189265&codigo_banco=014&guarda_cuenta_destino=true&nombre_beneficiario=Hail%20Alejandro%20Gonzalez&rfc_beneficiario=NA&email_beneficiario=hgonzalez%2Bqa%40alquimiapay.com&concepto=test_status&no_referencia=100119&api_key=test_status'
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc',
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Cookie': 'PHPSESSID=nbg3njeo8rnmptijknr8i10730; _csrf=ce964e283ac56ab7ed0ca72574e151e598340656bf8abf0e81b9b285105f79c9a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22C8Wv0icOny4Ec1EJ2I-PMQyB-Qa6cqQz%22%3B%7D'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/guardar-transacciones", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -664,28 +734,8 @@ codigo_seguridad | int | Código generado por el cliente.
 soft_token | int | Código generado en aplicativo AQPayToken.
 api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usar codigo_seguridad y soft_token).
 id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
-json_transacciones | json | Ejemplo de json:
-[{
-"cuenta_destino":"000000000100000104",
-"importe":"0.02",
-"concepto":"Demo",
-"nombre_beneficiario":"Alejandro",
-"rfc_beneficiario":"GOZH920615000",
-"email_beneficiario":"demo@alquimiapay.com",
-"no_referencia":"101010",
-"concepto_2":"na",
-"id_externo":"101001"
-},{
-"cuenta_destino":"000000000100000105",
-"importe":"0.02",
-"concepto":"Demo2",
-"nombre_beneficiario":"Alejandro",
-"rfc_beneficiario":"GOZH920615001",
-"email_beneficiario":"demo@alquimiapay.com",
-"no_referencia":"101011",
-"concepto_2":"na",
-"id_externo":"101002"
-}]
+json_transacciones | json | Ejemplo de json: [{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo",
+"nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"},{"cuenta_destino":"000000000100000105","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615001","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
 
 ## Autorizar Transacciones Pendientes
 
@@ -698,12 +748,73 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+      "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D"
+    },
+    "data": {
+      "id_transaccion": "3949",
+      "accion": "1",
+      "id_cuenta": "676",
+      "api_key": "af62d3c2cc4625b254a7fc919623756e"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'id_transaccion=3949&accion=1&id_cuenta=676&api_key=af62d3c2cc4625b254a7fc919623756e',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Content-Type: application/x-www-form-urlencoded',
+    'Cookie: PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_transaccion=3949&accion=1&id_cuenta=676&api_key=af62d3c2cc4625b254a7fc919623756e'
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Cookie': 'PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/ordenes-importador", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -722,9 +833,185 @@ Servicio para autorizar las transacciones pendientes, una vez autorizada en auto
 Parametros | Tipo | Descripción
 id_transaccion | int | Identificador que se obtiene del servicio de Listado de Transferencias pendientes, se pueden enviar múltiples id de transacciones separados por coma sin espacios.
 ejemplo: 15896,15855,78966
-accion | int | 1 => Autoriza las transacciones, \n 2 => Elimina las transacciones
+accion | int | 1 => Autoriza las transacciones, 2 => Elimina las transacciones
 id_cuenta | int | Id de la cuenta donde se realizaron las transacciones pendientes, se obtiene del servicios  Cuentas de ahorro del cliente.
 api_key | string | API Key generada para la cuenta de ahorro.
+
+## Comprobante de transacción
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente/<id_cuenta_ahorro>/transaccion/<id_transaccion>/comprobante'
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion/3123/comprobante",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+      "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D"
+    },
+    "data": {
+      "id_cuenta_ahorro": "676",
+      "id_transaccion": "3123"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion/3123/comprobante',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'id_cuenta_ahorro=676&id_transaccion=3123',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Content-Type: application/x-www-form-urlencoded',
+    'Cookie: PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_cuenta_ahorro=676&id_transaccion=3123'
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Cookie': 'PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/transaccion/3123/comprobante", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio que devuelve los datos únicamente de las transacciones hechas de la cuenta de ahorro, para hacer un comprobante.
+
+### Http Request
+
+### Parametros
+
+Parametros | Tipo | Descripción
+id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+id_transaccion | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
+
+## Perfil de usuario
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/perfil'
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/perfil",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+      "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+      "Cookie": "PHPSESSID=ss10k6balnrdu8vvm7trg0vhh4; _csrf=9b77db85b74ed97ae96f7cfa576936a324482de8c9863071c8f2898e0a60a8fda%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22B4elGp9QPkwRd7PwDBnAC_vBy5lYWj5L%22%3B%7D"
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/perfil',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Cookie: PHPSESSID=ss10k6balnrdu8vvm7trg0vhh4; _csrf=9b77db85b74ed97ae96f7cfa576936a324482de8c9863071c8f2898e0a60a8fda%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22B4elGp9QPkwRd7PwDBnAC_vBy5lYWj5L%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Cookie': 'PHPSESSID=ss10k6balnrdu8vvm7trg0vhh4; _csrf=9b77db85b74ed97ae96f7cfa576936a324482de8c9863071c8f2898e0a60a8fda%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22B4elGp9QPkwRd7PwDBnAC_vBy5lYWj5L%22%3B%7D'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/perfil", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio que devuelve los datos del usuario con el cual generó el token o en sesión.
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
 
 
 # Limite

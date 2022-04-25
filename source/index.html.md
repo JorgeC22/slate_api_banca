@@ -712,14 +712,16 @@ Servicio para hacer transacciones masivas de la cuenta de ahorro a otras cuentas
 
 ### Parametros
 
-Parametros | Tipo | Descripción
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
 cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
 medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
 codigo_seguridad | int | Código generado por el cliente.
 soft_token | int | Código generado en aplicativo AQPayToken.
 api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usar codigo_seguridad y soft_token).
 id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
-json_transacciones | json | Ejemplo de json: [{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo",
+json_transacciones | json | Ejemplo de json: 
+[{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo",
 "nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"},{"cuenta_destino":"000000000100000105","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615001","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
 
 ## Autorizar Transacciones Pendientes

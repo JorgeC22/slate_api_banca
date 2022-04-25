@@ -812,7 +812,8 @@ Servicio para autorizar las transacciones pendientes, una vez autorizada en auto
 
 ### Parametros
 
-Parametros | Tipo | Descripción
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
 id_transaccion | int | Identificador que se obtiene del servicio de Listado de Transferencias pendientes, se pueden enviar múltiples id de transacciones separados por coma sin espacios.
 ejemplo: 15896,15855,78966
 accion | int | 1 => Autoriza las transacciones, 2 => Elimina las transacciones
@@ -905,7 +906,8 @@ Servicio que devuelve los datos únicamente de las transacciones hechas de la cu
 
 ### Parametros
 
-Parametros | Tipo | Descripción
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
 id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
 id_transaccion | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
 
@@ -1153,7 +1155,8 @@ Servicio que devuelve el listado de los medios de pago asociados a la cuenta de 
 
 ### Parametros
 
-Parametros | Tipo | Descripción 
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
 tipo_producto | int | Siempre debe de ser 2.
 expand | string | “configuracion_out”
 id_producto | int | Identificador que asocia los medios de pago de la cuenta de ahorro, valor que se obtiene del servicio Cuentas de ahorro del cliente, valor del nodo, id_producto_ahorro_empresa.

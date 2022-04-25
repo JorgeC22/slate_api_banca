@@ -1011,7 +1011,699 @@ Servicio que devuelve los datos del usuario con el cual generó el token o en se
 
 `GET ruta`
 
+
+
+## Catalago de Bancos
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/catalogo-bancos'
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/catalogo-bancos",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+    "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+    "Cookie": "PHPSESSID=ei838v24k47tvbbsv66q85h9eq; _csrf=d18ffa3e997fc4da5c242247d75161a5320e12be8a34e38db4a82953bfc4a7eaa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22DbMQ7ldTlejmzp6c5QVqWYcJzvlWBRQC%22%3B%7D"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/catalogo-bancos',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Cookie: PHPSESSID=ei838v24k47tvbbsv66q85h9eq; _csrf=d18ffa3e997fc4da5c242247d75161a5320e12be8a34e38db4a82953bfc4a7eaa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22DbMQ7ldTlejmzp6c5QVqWYcJzvlWBRQC%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Cookie': 'PHPSESSID=ei838v24k47tvbbsv66q85h9eq; _csrf=d18ffa3e997fc4da5c242247d75161a5320e12be8a34e38db4a82953bfc4a7eaa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22DbMQ7ldTlejmzp6c5QVqWYcJzvlWBRQC%22%3B%7D'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/catalogo-bancos", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio que devuelve el listado del banco de acuerdo a la clave, primeros 3 dígitos.
+
+### Http Request 
+
+`GET ruta`
+
 ### Parametros
+
+Parametros | Tipo | Descripción
+b | int | Valor que contiene 3 dígitos, este devolverá el banco con dicha clave, ejemplo, 012 nos devolverá el banco BBVA BANCOMER. (si no se conoce el valor del banco, consume el servicio sin parametros y te devolverá la lista completa de los bancos)
+
+## Catalago de Medios de Pago
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/medio-pago'
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/medio-pago",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+    "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+    "Cookie": "PHPSESSID=l71li7qsl9821jk84oseotrib5; _csrf=8410e241200258274425b024582491482d0c7e910cecfee54ac83f068433eb6ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22XXFFp45HeSIQADK_NdeVS4D1E9hFlM_n%22%3B%7D"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/medio-pago',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Cookie: PHPSESSID=l71li7qsl9821jk84oseotrib5; _csrf=8410e241200258274425b024582491482d0c7e910cecfee54ac83f068433eb6ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22XXFFp45HeSIQADK_NdeVS4D1E9hFlM_n%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Cookie': 'PHPSESSID=l71li7qsl9821jk84oseotrib5; _csrf=8410e241200258274425b024582491482d0c7e910cecfee54ac83f068433eb6ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22XXFFp45HeSIQADK_NdeVS4D1E9hFlM_n%22%3B%7D'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/medio-pago", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio que devuelve el listado de los medios de pago asociados a la cuenta de ahorro.
+
+### Http Request
+
+`Get ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+tipo_producto | int | Siempre debe de ser 2.
+expand | string | “configuracion_out”
+id_producto | int | Identificador que asocia los medios de pago de la cuenta de ahorro, valor que se obtiene del servicio Cuentas de ahorro del cliente, valor del nodo, id_producto_ahorro_empresa.
+
+
+## Crear Cuentas de Cobranza Referenciada
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente/<id_cuenta_ahorro>/emparejamiento
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/emparejamiento",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+    "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Cookie": "PHPSESSID=5nesfd07sdeksb3m2mmolirtgo; _csrf=e78c267c032a33866d568e9f5511f7898abe2c43ba530b2e97d856cee88e724ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22MLAiMTLPQ32X07Oy0BoyKFwARr8L5QFl%22%3B%7D"
+  },
+  "data": {
+    "id_cuenta_ahorro": "676",
+    "cuenta_hija": "true",
+    "nombre_cobranza": "ejemplo"
+  }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/emparejamiento',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'id_cuenta_ahorro=676&cuenta_hija=true&nombre_cobranza=ejemplo',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Content-Type: application/x-www-form-urlencoded',
+    'Cookie: PHPSESSID=5nesfd07sdeksb3m2mmolirtgo; _csrf=e78c267c032a33866d568e9f5511f7898abe2c43ba530b2e97d856cee88e724ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22MLAiMTLPQ32X07Oy0BoyKFwARr8L5QFl%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_cuenta_ahorro=676&cuenta_hija=true&nombre_cobranza=ejemplo'
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Cookie': 'PHPSESSID=5nesfd07sdeksb3m2mmolirtgo; _csrf=e78c267c032a33866d568e9f5511f7898abe2c43ba530b2e97d856cee88e724ea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22MLAiMTLPQ32X07Oy0BoyKFwARr8L5QFl%22%3B%7D'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente/676/emparejamiento", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+  "id_cuenta_ahorro": 676,
+  "cuenta_hija": 1,
+  "nombre_cobranza": "ejemplo",
+  "id_medio_pago": 4,
+  "tipo_comision": 1,
+  "valor_comision": "0.00",
+  "numero_maximo_transacciones": 127,
+  "monto_maximo_transacciones": "100000.00",
+  "tipo_reseteo": 1,
+  "horas_reseteo": null,
+  "calendario_transaccion": "1,2,3,4,5,6,0",
+  "hora_inicio": "00:00",
+  "hora_fin": "23:59",
+  "tipo_cash": 1,
+  "saldo_basado_medio_pago": 1,
+  "no_cuenta_medio_pago": "659803000000448058",
+  "cuenta_eje": "0000000133-CD-0000000133-0000044688",
+  "fecha_alta":{
+    "expression": "now()",
+    "params":[]
+  },
+  "fecha_actualizacion":{
+  "expression": "now()",
+  "params":[]
+  },
+  "id": 333
+}
+```
+
+Servicio permite crear cuentas de cobranza referenciada a la cuenta principal.
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+cuenta_hija | int  | Indica que será una clabe de cobranza referenciada y se le debe enviar el valor true.
+nombre_cobranza | string | Es el nombre (alias) que tendrá la clabe de cobranza referenciada generada.
+
+## Listar CLABEs de Cobranza Referenciada de una Cuenta de Ahorro
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=<id_cuenta_ahorro>'
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...",
+    "AuthorizationAlquimia": "Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...",
+    "Cookie": "PHPSESSID=bbum93sseia4dquoim89oe9svr; _csrf=f9c236d2a63c5522a1c92cbbc18f772f3a8a7d3a4f083d5ac9f6ceb01c60919ba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YcxWnio6SRWwYdqK46GRJabmdWyx9F9w%22%3B%7D"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+    'AuthorizationAlquimia: Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+    'Cookie: PHPSESSID=bbum93sseia4dquoim89oe9svr; _csrf=f9c236d2a63c5522a1c92cbbc18f772f3a8a7d3a4f083d5ac9f6ceb01c60919ba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YcxWnio6SRWwYdqK46GRJabmdWyx9F9w%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBel...',
+  'AuthorizationAlquimia': 'Bearer dae4a6a55dfd5ffb6e745b045d7ea82e98cae8bc...',
+  'Cookie': 'PHPSESSID=bbum93sseia4dquoim89oe9svr; _csrf=f9c236d2a63c5522a1c92cbbc18f772f3a8a7d3a4f083d5ac9f6ceb01c60919ba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22YcxWnio6SRWwYdqK46GRJabmdWyx9F9w%22%3B%7D'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+  "id": 333,
+  "id_cuenta_ahorro": 676,
+  "id_medio_pago": 4,
+  "numero_referencia": null,
+  "estatus": null,
+  "fecha_alta": "2022-04-07 21:13:29",
+  "fecha_actualizacion": "2022-04-07 21:13:29",
+  "tipo_comision": 1,
+  "valor_comision": "0.00",
+  "numero_maximo_transacciones": 127,
+  "monto_maximo_transacciones": "100000.00",
+  "tipo_reseteo": 1,
+  "horas_reseteo": null,
+  "hora_inicio": "00:00",
+  "hora_fin": "23:59",
+  "calendario_transaccion": "1,2,3,4,5,6,0",
+  "no_cuenta_medio_pago": "659803000000448058",
+  "cuenta_eje": "0000000133-CD-0000000133-0000044688",
+  "tipo_cash": 1,
+  "saldo_basado_medio_pago": 1,
+  "activo": 0,
+  "cuenta_hija": 1,
+  "nombre_cobranza": "ejemplo",
+  "_links":{"self":{"href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-medio-pago/333"…}
+}
+```
+
+Servicio que devuelve el listado de las CLABEs de cobranza referenciada.
+
+### Http Request
+
+`GET /1.0.0/v2/cuenta-ahorro-medio-pago`
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+
+
+## Listas de Cuentas Hijas de un Cuenta Madre
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=<id_cuenta_ahorro_padre>'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre
+
+### Http Request
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+id_cuenta_ahorro_padre | int | Identificador de la cuenta madre.
+
+
+
+## Consulta de Estatus de Transacción
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/consulta-estatus-tx'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+{
+  "id_transaccion": "3142",
+  "estatus": "LIQUIDADA",
+  "detalle_proveedor":{
+    "error": false,
+    "message": "Transacción sembrada exitosamente en proveedor"
+  }
+}
+
+```
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+id_transaccion | number | REQUERIDO - Para determinar el estatus de una transacción
+id_cuenta | number | REQUERIDO - Número de cuenta de la transacción
+
+
+## Consulta de Saldo por Tarjeta
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/saldo-tarjeta-visa/4116xxxxxxxxxxxx'
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+{
+  "error": false,
+  "message": "Consulta Exitosa",
+  "no_tarjeta": "4116XXXXXXXXXXXX",
+  "saldo": "0.55"
+}
+```
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción 
+numero de tarjeta | number | REQUERIDO - Para consultar el saldo de la tarjeta, sustituir las X por los números de la tarjeta.
+
+## Disposición en Cajero Automatico
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/dispersion-sin-tarjeta
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+{
+  "error": false,
+  "id_transaccion": 3158,
+  "folio_orden": "274844",
+  "message": "Operación registrada con éxito. Estado: Pendiente.",
+  "pendiente": true,
+  "obj_res":[]
+}
+```
+
+Servicio para solicitar un retiro de efectivo en cajero automático sin tarjeta desde Alquimia Pay
+
+### Http Request
+
+`GET ruta`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
+importe | string | Importe de la transacción.
+concepto | string | Concepto de la transacción.
+concepto_otro | string | Concepto de la transacción si es que se ocupa un segundo concepto para la transacción.
+nombre_beneficiario | string | Nombre del Beneficiario.
+curp_beneficiario | string | CURP del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
+rfc_beneficiario | string | RFC del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
+telefono_beneficiario | int | Teléfono del Beneficiario.
+api_key | string | API Key generada para la cuenta de ahorro.
+nombre_beneficiario | string | Nombre del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+apellido_paterno | string | Apellido Paterno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+apellido_materno | string | Apellido Materno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+genero | string | Género del beneficiario, se envia M => en caso de masculino y F => en caso de femeninorequerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+fecha_nacimiento  | string | Fecha de nacimiento del beneficiario, se envía en formato: yyyy-mm-dd requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+estado_nacimiento | string | Estado de Nacimiento  del beneficiario, la lista de estados se encuentra en el servicio de catálogo estados,  requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+
+
+## Disposición en Cajero Automatico JSON
+
+```shell
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+### Http Request
+
+### Parametros
+
+
+## Webhooks
+
+```shell
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+### Http Request
+
+### Parametros
+
+
+## Cancelacion Retiro ATM Santander
+
+```shell
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+### Http Request
+
+### Parametros
+
+
+## Consulta de Estatus de Cancelación Retiro ATM Santander
+
+```shell
+```
+
+```javascript
+```
+
+```php
+```
+
+```python
+```
+
+> Respuesta:
+
+```json
+```
+
+### Http Request
+
+### Parametros
+
+
+## API Key/Webhook
+
+
+
 
 
 # Limite

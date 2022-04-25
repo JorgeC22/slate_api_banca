@@ -720,8 +720,7 @@ codigo_seguridad | int | Código generado por el cliente.
 soft_token | int | Código generado en aplicativo AQPayToken.
 api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usar codigo_seguridad y soft_token).
 id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
-json_transacciones | json | Ejemplo de json: 
-[{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo",
+json_transacciones | json | Ejemplo de json: \n[{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo",
 "nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"},{"cuenta_destino":"000000000100000105","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615001","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
 
 ## Autorizar Transacciones Pendientes

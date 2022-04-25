@@ -1070,6 +1070,7 @@ Servicio que devuelve el listado del banco de acuerdo a la clave, primeros 3 dí
 ### Parametros
 
 Parametros | Tipo | Descripción
+----------- | ----------- | -----------
 b | int | Valor que contiene 3 dígitos, este devolverá el banco con dicha clave, ejemplo, 012 nos devolverá el banco BBVA BANCOMER. (si no se conoce el valor del banco, consume el servicio sin parametros y te devolverá la lista completa de los bancos)
 
 ## Catalago de Medios de Pago
@@ -1614,28 +1615,93 @@ api_key | string | API Key generada para la cuenta de ahorro.
 
 ## Webhooks
 
-```shell
-```
+La siguiente estructura representa cómo Alquimia enviará las notificaciones a sus clientes cuando expongan una URL donde se dará aviso de abonos o sobre liquidaciones de spei out.
 
-```javascript
-```
-
-```php
-```
-
-```python
-```
+### Notificacion de liquidación SPEI
 
 > Respuesta:
 
 ```json
+{
+  "id"
+  "empresa": "Alias o nombre de la empresa o cuenta de ahorro",
+  "claveRastreo": "claveDeRastreo",
+  "monto" "100.00",
+  "estado": "string",//DISPERSADO,RECHAZADO,
+  "caudaDevolucion": "CUENTA INEXISTENTE",
+  "tsLiquidacion": "2021-10-01 19:25:11.707",
+}
 ```
 
-La siguiente estructura representa cómo Alquimia enviará las notificaciones a sus clientes cuando expongan una URL donde se dará aviso de abonos o sobre liquidaciones de spei out.
+> En caso de error:
 
-### Http Request
+```json
+{
+  "estado": 0,
+  "mensajeError": ""
+}
+```
+
+Se detona al momento que el participante SPEI notifica que la transferencia ha sido liquidada.
 
 ### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id | int(12) | Id asignado a la orden liquidada.
+empresa | string(15) | Nombre de la empresa o cuenta de ahorro "ALIAS".
+claveRastreo | string(50) | Clave de Rastreo.
+monto | float(19,2) | Monto de la transferencia.
+estado | string(10) | El estado de la orden, "RECHAZADO", "DISPERSADO"
+causaDevolucion | string(50) | Descripcion de la causa de la devolucion del pago. Catalogo motivo de rechazo.
+tsLiquidacion  | datetime | Contiene información en milisegundos de la fecha y hora de la liquidacon de la operación.
+
+### Notificación de Transacciones
+
+> Respuesta:
+
+```json
+{
+	"id": 6621,
+	"no_cuenta_eje": "1000000004600019",
+	"tipo": 2,
+	"medioPago": "SPEI STP - Alquimia PAY",
+	"fechaOperacion": "2022-02-28 17:06:15",
+	"institucionOrdenante": 90646,
+	"nombreOrdenante": "ALQUIMIA",
+	"tipoCuentaOrdenante": "1",
+	"cuentaOrdenante": "646180000100000006",
+	"rfcCurpOrdenante": "ND",
+	"claveRastreo": "DEMWEBHOOKS22022800000004",
+	"monto": "10.00",
+	"nombreBeneficiario": "DESARROLLO SA",
+	"cuentaBeneficiario": "646180000101501753",
+	"rfcCurpBeneficiario": "",
+	"concepto": "Prueba SPEI-IN abono4"
+}
+```
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id | int | Identificador de la transacción.
+no_cuenta_eje | string | Número de Cuenta Eje asignado por la Banca.
+tipo | int | Indica el tipo de transacción, donde 1 = CARGO y 2 = ABONO.
+medioPago | string | Indica el nombre del Medio de Pago de la transacción.
+fechaOperacion | date | Indica la fecha en la que se realiza la transacción.
+institucionOrdenante | string | Indica el código de la institución bancaria ó el nombre de la institución que realizó la transacción, en caso de ser 0 (cero), el dato no aplica.
+nombreOrdenante | string | Indica el nombre de quien realizó la transacción.
+tipoCuentaOrdenante | int | Indica el tipo de cuenta, donde 40 = Clabe Interbancaria, 3 = # Tarjeta y 0 = No Aplica.
+cuentaOrdenante | int | Indica el número de cuenta del responsable que detona-ordena la transacción.
+rfcCurpOrdenante | string | Indica el RFC o CURP del responsable que detona-ordena la transacción.
+claveRastreo | string | Clave de Rastreo asociada a la transacción.
+monto | decimal | Indica el monto (valor monetario) de la transacción.
+nombreBeneficiario | string | Indica el nombre del beneficiario, es decir, quien recibe la transacción.
+cuentaBeneficiario | string | ndica el número de cuenta del beneficiario, es decir, quien recibe la transacción.
+rfcCurpBeneficiario | string | Indica el RFC o CURP del beneficiario, es decir, quien recibe la transacción.
+concepto | string | Indica el concepto de la transacción establecida por el Ordenante.
+
 
 
 ## Cancelacion Retiro ATM Santander

@@ -814,9 +814,8 @@ Servicio para autorizar las transacciones pendientes, una vez autorizada en auto
 
 Parametro | Tipo | Descripción
 --------- | ------- | -----------
-id_transaccion | int | Identificador que se obtiene del servicio de Listado de Transferencias pendientes, se pueden enviar múltiples id de transacciones separados por coma sin espacios.
-ejemplo: 15896,15855,78966
-accion | int | 1 => Autoriza las transacciones, 2 => Elimina las transacciones
+id_transaccion | int | Identificador que se obtiene del servicio de Listado de Transferencias pendientes, se pueden enviar múltiples id de transacciones separados por coma sin espacios. ejemplo: 15896,15855,78966.
+accion | int | 1 => Autoriza las transacciones, 2 => Elimina las transacciones.
 id_cuenta | int | Id de la cuenta donde se realizaron las transacciones pendientes, se obtiene del servicios  Cuentas de ahorro del cliente.
 api_key | string | API Key generada para la cuenta de ahorro.
 

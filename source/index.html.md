@@ -466,7 +466,7 @@ Servicio para listar las cuentas, saldos y estados de cuentas del cliente.
 
 ### Http Request
 
-`GET https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente`
+`GET /1.0.0/v2/cuenta-ahorro-cliente`
 
 ### Parametros
 
@@ -556,7 +556,7 @@ Servicio para consultar el saldo de la cuenta de ahorro en base a la cuenta clab
 
 ### Http request
 
-`GET https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/saldo-cuenta-ahorro`
+`GET /1.0.0/v2/saldo-cuenta-ahorro`
 
 ### Parametros
 
@@ -694,7 +694,7 @@ Servicio para listar los movimientos hechos por la cuenta de ahorro del cliente
 
 ### Http Request
 
-`Get ruta`
+`Get /1.0.0/v2/cuenta-ahorro-cliente`
 
 ### Parametros
 
@@ -802,7 +802,7 @@ Servicio para listar las transferencias pendientes por la cuenta de ahorro del c
 
 ### Http Request
 
-`GET ruta`
+`GET /1.0.0/v2/ordenes-importador`
 
 ### Parametros
 
@@ -915,7 +915,7 @@ Servicio para hacer transacciones de la cuenta de ahorro a otra cuenta.
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/guardar-transacciones`
 
 ### Parametros
 
@@ -1045,7 +1045,7 @@ Servicio para hacer transacciones masivas de la cuenta de ahorro a otras cuentas
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/importador-transacciones-json`
 
 ### Parametros
 
@@ -1149,7 +1149,7 @@ Servicio para autorizar las transacciones pendientes, una vez autorizada en auto
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/ordenes-importador`
 
 ### Parametros
 
@@ -1317,6 +1317,8 @@ Servicio que devuelve los datos únicamente de las transacciones hechas de la cu
 
 ### Http Request
 
+`POST /1.0.0/v2/cuenta-ahorro-cliente`
+
 ### Parametros
 
 Parametro | Tipo | Descripción
@@ -1413,7 +1415,7 @@ Servicio que devuelve los datos del usuario con el cual generó el token o en se
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/perfil`
 
 
 
@@ -1512,7 +1514,7 @@ Servicio que devuelve el listado del banco de acuerdo a la clave, primeros 3 dí
 
 ### Http Request 
 
-`GET ruta`
+`GET /1.0.0/v2/catalogo-bancos`
 
 ### Parametros
 
@@ -1639,7 +1641,7 @@ Servicio que devuelve el listado de los medios de pago asociados a la cuenta de 
 
 ### Http Request
 
-`Get ruta`
+`GET /1.0.0/v2/medio-pago`
 
 ### Parametros
 
@@ -1763,7 +1765,7 @@ Servicio permite crear cuentas de cobranza referenciada a la cuenta principal.
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/cuenta-ahorro-cliente`
 
 ### Parametros
 
@@ -2000,6 +2002,8 @@ Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre
 
 ### Http Request
 
+`GET /1.0.0/v2/cuenta-ahorro-cliente`
+
 ### Parametros
 
 Parametros | Tipo | Descripción
@@ -2093,7 +2097,7 @@ print(data.decode("utf-8"))
 
 ### Http Request
 
-`GET ruta`
+`GET /1.0.0/v2/consulta-estatus-tx`
 
 ### Parametros
 
@@ -2185,7 +2189,7 @@ print(data.decode("utf-8"))
 
 ### Http Request
 
-`GET ruta`
+`GET /1.0.0/v2/saldo-tarjeta-visa`
 
 ### Parametros
 
@@ -2300,7 +2304,7 @@ Servicio para solicitar un retiro de efectivo en cajero automático sin tarjeta 
 
 ### Http Request
 
-`GET ruta`
+`POST /1.0.0/v2/dispersion-sin-tarjeta`
 
 ### Parametros
 
@@ -2410,6 +2414,8 @@ print(data.decode("utf-8"))
 Servicio para solicitar varios retiros de efectivo en cajero automático sin tarjeta desde Alquimia Pay 
 
 ### Http Request
+
+`POST /1.0.0/v2/importador-transacciones-json`
 
 ### Parametros
 
@@ -2655,6 +2661,8 @@ print(data.decode("utf-8"))
 
 ### Http Request
 
+`POST /1.0.0/v2/cancela-retiro-atm`
+
 ### Parametros
 
 Parametros | Tipo | Descripción
@@ -2673,12 +2681,67 @@ curl -X GET \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "clave_rastreo": ""
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'clave_rastreo=',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'clave_rastreo='
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -2719,6 +2782,10 @@ curl -X GET \
 
 Servicio para la consulta del estatus de la cancelación.
 
+### Http Request
+
+`GET /1.0.0/v2/cancela-retiro-atm`
+
 ### Notas adicionales:
 
 En caso de que el servicio responda como exitoso, en el nodo estatus_cancelacion, viene uno de los posibles valores al cancelar la operación:
@@ -2733,226 +2800,381 @@ Código | Descripción
 
 ### Parametros
 
-Parametros | Tipo | Descripción
+Parametro | Tipo | Descripción
 --------- | ------- | -----------
 clave_rastreo | string | REQUERIDO - Clave para cancelación del Retiro.
 
-## API Key/Webhook
+# API Key/Webhook
 
-### Creacion
-
-#### Parametros
-
-
-
-# Limite
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+## Creacion
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+curl -X POST\
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro/<id_cuenta>/otp-dinamico'
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "ips": "192.168.100.200",
+      "url_notificacion": "192.168.0.40",
+      "medios_pago": "5",
+      "api_key": "f7d46b5f1f4ffdda9d7dcbae84043d4c"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+```php
+<?php
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+$curl = curl_init();
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'ips=192.168.100.200&url_notificacion=192.168.0.40&medios_pago=5&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
 
-`Authorization: meowmeowmeow`
+$response = curl_exec($curl);
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+curl_close($curl);
+echo $response;
 ```
 
 ```python
-import kittn
+import http.client
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'ips=192.168.100.200&url_notificacion=192.168.0.40&medios_pago=5&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Respuesta:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
 ```
 
-This endpoint retrieves all kittens.
+### Https Request
 
-### HTTP Request
+`POST /1.0.0/v2/cuenta-ahorro`
 
-`GET http://example.com/api/kittens`
+### Parametros
 
-### Query Parameters
-
-Parameter | Default | Description
+Parametro | Tipo | Descripción
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+ips | string | REQUERIDO - IP´s versión 4, en caso de necesitar más de una IP, se agrega una coma (,) entre cada IP, Ejemplo: 192.1.1.1, 198.5.11
+codigo_seguridad | string | Código generado por el cliente.
+soft_token | string | Código generado en aplicativo AQPayToken.
+url_notificacion | string | OPCIONAL - Puede ser SOLO UNA IPv4 o URL.
+medio_pago | string | OPCIONAL - Es requerido en el momento de que se agrega el nodo url_notificacion. Se puede mandar más de un medio de pago, separado por coma, ejemplo: 1, 5, 8
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Listado
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+curl -X GET\
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \ 
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro/<id_cuenta>/otp-dinamico?estatus=1'
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico?estatus=1",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>"
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
-> The above command returns JSON structured like this:
+```php
+<?php
 
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
+$curl = curl_init();
 
-This endpoint retrieves a specific kitten.
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico?estatus=1',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>'
+  ),
+));
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+$response = curl_exec($curl);
 
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+curl_close($curl);
+echo $response;
 ```
 
 ```python
-import kittn
+import http.client
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico?estatus=1", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
+> Respuesta:
+
+```json
+```
+
+### Https Request
+
+`GET /1.0.0/v2/cuenta-ahorro`
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+estatus | int | REQUERIDO - Siempre debe ser 1.
+
+## Edición
+
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+curl -X PATCH\
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro/<id_cuenta>/otp-dinamico/<id_otp>'
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37",
+    "method": "PATCH",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "ips": "192.168.100.200",
+      "codigo_seguridad": "112121",
+      "soft_token": "123456",
+      "url_notificacion": "https://ejemplo.com",
+      "medios_pago": "3,4",
+      "id_otp": "37",
+      "actualizar": "1"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
-> The above command returns JSON structured like this:
+```php
+<?php
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'PATCH',
+  CURLOPT_POSTFIELDS => 'ips=192.168.100.200&codigo_seguridad=112121&soft_token=123456&url_notificacion=https%3A%2F%2Fejemplo.com&medios_pago=3%2C4&id_otp=37&actualizar=1',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'ips=192.168.100.200&codigo_seguridad=112121&soft_token=123456&url_notificacion=https%3A%2F%2Fejemplo.com&medios_pago=3%2C4&id_otp=37&actualizar=1'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
+conn.request("PATCH", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
-This endpoint deletes a specific kitten.
+> Respuesta:
 
-### HTTP Request
+```shell
+```
 
-`DELETE http://example.com/kittens/<ID>`
+### Https Request
 
-### URL Parameters
+`PATCH /1.0.0/v2/cuenta-ahorro`
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+ips | string | REQUERIDO - IP´s versión 4, en caso de necesitar más de una IP, se agrega una coma (,) entre cada IP, Ejemplo: 192.1.1.1, 198.5.11
+codigo_seguridad | string | Código generado por el cliente.
+soft_token | string | Código generado en aplicativo AQPayToken.
+url_notificacion | string | OPCIONAL - Puede ser SOLO UNA IPv4 o URL.
+medios_pago | string | OPCIONAL - Es requerido en el momento de que se agrega el nodo url_notificacion. Se puede mandar más de un medio de pago, separado por coma, ejemplo: 1, 5, 8.
+id_otp | int | REQUERIDO - ID del OTP.
+actualizar | int | REQUERIDO - Siempre debe ser 1 cuando se requiera actualizar.
+
+## Borrado
+
+```shell
+curl -X DELETE\
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro/<id_cuenta>/otp-dinamico/<id_otp>'
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37",
+    "method": "DELETE",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "id_otp": "37",
+      "codigo_seguridad": "605151",
+      "soft_token": "123456"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'DELETE',
+  CURLOPT_POSTFIELDS => 'id_otp=37&codigo_seguridad=605151&soft_token=123456',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_otp=37&codigo_seguridad=605151&soft_token=123456'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("DELETE", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro/676/otp-dinamico/37", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```shell
+```
+
+### Https Request
+
+`DELETE /1.0.0/v2/cuenta-ahorro`
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id_otp | int | REQUERIDO - ID del OTP.
+codigo_seguridad | string | Código generado por el cliente.
+soft_token | string | Código generado en aplicativo AQPayToken.
 

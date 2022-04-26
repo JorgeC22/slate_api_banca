@@ -698,19 +698,91 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com//sanboxalquimiapay/1.0.0/v2/importador-transacciones-json",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "cuenta_origen": "676",
+      "medio_pago": "4",
+      "api_key": "f7d46b5f1f4ffdda9d7dcbae84043d4c",
+      "id_cliente": "18202",
+      "json_transacciones": "[{\"cuenta_destino\":\"014420606082255474\",\"importe\":\"0.02\",\"concepto\":\"Demo\",\"nombre_beneficiario\":\"Alejandro\",\"rfc_beneficiario\":\"GOZH920615000\",\"email_beneficiario\":\"hailglez@gmail.com\",\"no_referencia\":\"101010\",\"concepto_2\":\"na\",\"id_externo\":\"101001\"},{\"cuenta_destino\":\"014420606082255474\",\"importe\":\"0.02\",\"concepto\":\"Demo2\",\"nombre_beneficiario\":\"Alejandro\",\"rfc_beneficiario\":\"GOZH920615001\",\"email_beneficiario\":\"demo@alquimiapay.com\",\"no_referencia\":\"101011\",\"concepto_2\":\"na\",\"id_externo\":\"101002\"}]"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com//sanboxalquimiapay/1.0.0/v2/importador-transacciones-json',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=676&medio_pago=4&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c&id_cliente=18202&json_transacciones=%5B%7B%22cuenta_destino%22%3A%22014420606082255474%22%2C%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22Demo%22%2C%22nombre_beneficiario%22%3A%22Alejandro%22%2C%22rfc_beneficiario%22%3A%22GOZH920615000%22%2C%22email_beneficiario%22%3A%22hailglez%40gmail.com%22%2C%22no_referencia%22%3A%22101010%22%2C%22concepto_2%22%3A%22na%22%2C%22id_externo%22%3A%22101001%22%7D%2C%7B%22cuenta_destino%22%3A%22014420606082255474%22%2C%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22Demo2%22%2C%22nombre_beneficiario%22%3A%22Alejandro%22%2C%22rfc_beneficiario%22%3A%22GOZH920615001%22%2C%22email_beneficiario%22%3A%22demo%40alquimiapay.com%22%2C%22no_referencia%22%3A%22101011%22%2C%22concepto_2%22%3A%22na%22%2C%22id_externo%22%3A%22101002%22%7D%5D',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=676&medio_pago=4&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c&id_cliente=18202&json_transacciones=%5B%7B%22cuenta_destino%22%3A%22014420606082255474%22%2C%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22Demo%22%2C%22nombre_beneficiario%22%3A%22Alejandro%22%2C%22rfc_beneficiario%22%3A%22GOZH920615000%22%2C%22email_beneficiario%22%3A%22hailglez%40gmail.com%22%2C%22no_referencia%22%3A%22101010%22%2C%22concepto_2%22%3A%22na%22%2C%22id_externo%22%3A%22101001%22%7D%2C%7B%22cuenta_destino%22%3A%22014420606082255474%22%2C%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22Demo2%22%2C%22nombre_beneficiario%22%3A%22Alejandro%22%2C%22rfc_beneficiario%22%3A%22GOZH920615001%22%2C%22email_beneficiario%22%3A%22demo%40alquimiapay.com%22%2C%22no_referencia%22%3A%22101011%22%2C%22concepto_2%22%3A%22na%22%2C%22id_externo%22%3A%22101002%22%7D%5D'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "//sanboxalquimiapay/1.0.0/v2/importador-transacciones-json", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
 
 ```json
 {
-  ""
+  "error": false,
+  "pendiente": true,
+  "message": "Orden registrada con exito",
+  "folio_orden": "271288",
+  "id_transacciones": [
+    {
+      "id_externo": "101001",
+      "id_transaccion": 3089,
+    },
+    {
+      "id_externo": "101002",
+      "id_transaccion": 3090
+    }
+  ]
 }
 ```
 
@@ -730,7 +802,7 @@ codigo_seguridad | int | Código generado por el cliente.
 soft_token | int | Código generado en aplicativo AQPayToken.
 api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usar codigo_seguridad y soft_token).
 id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
-json_transacciones | json | Ejemplo de json: \n[{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"}{"cuenta_destino":"000000000100000105","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615001","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
+json_transacciones | json | Ejemplo de json: [{"cuenta_destino":"000000000100000104","importe":"0.02","concepto":"Demo","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"}{"cuenta_destino":"000000000100000105","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Alejandro","rfc_beneficiario":"GOZH920615001","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
 
 ## Autorizar Transacciones Pendientes
 
@@ -1078,7 +1150,8 @@ print(data.decode("utf-8"))
   "rfc":"CEZJ000225PK8",
   "curp":"CEZJ000225HDFRVRA9",
   "nacionalidad":"MX",
-  "tipo_usuario":"administrador"}
+  "tipo_usuario":"administrador"
+}
 ```
 
 Servicio que devuelve los datos del usuario con el cual generó el token o en sesión.
@@ -1567,12 +1640,60 @@ curl -X GET \
 ```
 
 ```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer <ACCESS_TOKEN>",
+    "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=676", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -1643,12 +1764,62 @@ curl -X GET \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/consulta-estatus-tx?id_transaccion=3142&id_cuenta=676",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Cookie": "PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D"
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/consulta-estatus-tx?id_transaccion=3142&id_cuenta=676',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Cookie: PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/consulta-estatus-tx?id_transaccion=3142&id_cuenta=676", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -1688,12 +1859,62 @@ curl -X GET \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/saldo-tarjeta-visa/4116080130118909",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Cookie": "PHPSESSID=95k7akkrtccoq8ogoc11l95qgd; _csrf=c871a2fa6bd1156528a139017c8d5c17ca5fec63004679af9beb12211b1888c5a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22e7MsaJGCS-2uKH9s7j9usaaRvY716czS%22%3B%7D"
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/saldo-tarjeta-visa/4116080130118909',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Cookie: PHPSESSID=95k7akkrtccoq8ogoc11l95qgd; _csrf=c871a2fa6bd1156528a139017c8d5c17ca5fec63004679af9beb12211b1888c5a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22e7MsaJGCS-2uKH9s7j9usaaRvY716czS%22%3B%7D'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/saldo-tarjeta-visa/4116080130118909", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -1728,12 +1949,83 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "PHPSESSID=rbmp0b6t7afimhlktr7t87v5qp; _csrf=96ddf3b60fc9ec072fcfeaa0b1dba279aafbc33b7803745d38eb461c24a7e97aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22CFbCltaQdEqbRJpxAhkHNH6WAOnpZDyD%22%3B%7D"
+    },
+    "data": {
+      "cuenta_origen": "676",
+      "id_cliente": "18202",
+      "medio_pago": "7",
+      "importe": "0.02",
+      "concepto": "TEST",
+      "concepto_otro": "TEST_DOS",
+      "curp_beneficiario": "GOZH920615HMSNPL07",
+      "rfc_beneficiario": "GOZH920615P50",
+      "telefono_beneficiario": "7227843512",
+      "api_key": "f7d46b5f1f4ffdda9d7dcbae84043d4c",
+      "Nombre_beneficiario": "Hail Alejandro",
+      "apellido_paterno": "Gonzalez",
+      "apellido_materno": "Zepeda",
+      "genero": "M",
+      "fecha_nacimiento": "1992-06-15",
+      "estado_nacimiento": "Morelos"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=676&id_cliente=18202&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=GOZH920615HMSNPL07&rfc_beneficiario=GOZH920615P50&telefono_beneficiario=7227843512&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c&Nombre_beneficiario=Hail%20Alejandro&apellido_paterno=Gonzalez&apellido_materno=Zepeda&genero=M&fecha_nacimiento=1992-06-15&estado_nacimiento%0A=Morelos',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=676&id_cliente=18202&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=GOZH920615HMSNPL07&rfc_beneficiario=GOZH920615P50&telefono_beneficiario=7227843512&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c&Nombre_beneficiario=Hail%20Alejandro&apellido_paterno=Gonzalez&apellido_materno=Zepeda&genero=M&fecha_nacimiento=1992-06-15&estado_nacimiento%0A=Morelos'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/guardar-transacciones", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -1789,12 +2081,70 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "cuenta_origen": "676",
+      "id_cliente": "18202",
+      "json_transacciones": "[{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"AEMA961010HMCRNL07\",\"email_beneficiario\":\"aarellanes@epica.solutions\",\"celular_beneficiario\":\"7227843512\",\"concepto_dos\":\"na\",\"id_externo\":100001},{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"AEMA961010HMCRNL07\",\"email_beneficiario\":\"aarellanes@epica.solutions\",\"celular_beneficiario\":\"7227843512\",\"concepto_dos\":\"na\",\"id_externo\":100002}]",
+      "api_key": "f7d46b5f1f4ffdda9d7dcbae84043d4c"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=676&id_cliente=18202&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22AEMA961010HMCRNL07%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%227227843512%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22AEMA961010HMCRNL07%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%227227843512%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=676&id_cliente=18202&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22AEMA961010HMCRNL07%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%227227843512%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22AEMA961010HMCRNL07%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%227227843512%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=f7d46b5f1f4ffdda9d7dcbae84043d4c'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:
@@ -1919,12 +2269,67 @@ curl -X POST \
 ```
 
 ```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "clave_rastreo": ""
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'clave_rastreo=',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'clave_rastreo='
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 ```
 
 > Respuesta:

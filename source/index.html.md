@@ -2650,18 +2650,17 @@ print(data.decode("utf-8"))
       "http_code": 201
   }
 }
-
 ```
+
+### Http Request
+
+`POST /1.0.0/v2/cancela-retiro-atm`
 
 ### Algunas consideraciones:
 
 * No podrá ser cancelada una orden de pago (retiro sin tarjeta) si no ha sido previamente confirmada y generada exitosamente.
 * Se establece un tiempo de 10 minutos para poder cancelar la orden desde la generación de la misma, en caso de intento de cancelación el recurso negara la solicitud.
 * Cuando se realiza petición de cancelación solo manda la instrucción a Santander de cancelar, sin embargo Santander tarda tiempo en cancelarla, para consultar estatus de la cancelación se crea otro servicio para consulta del estatus.
-
-### Http Request
-
-`POST /1.0.0/v2/cancela-retiro-atm`
 
 ### Parametros
 

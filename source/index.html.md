@@ -647,6 +647,13 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+{
+  "error": false,
+  "id_transaccion": 1135,
+  "folio_orden": "263028",
+  "message": "Operación registrada con exito. Estado: Aplicada.",
+  "pendiente": true
+}
 ```
 
 Servicio para hacer transacciones de la cuenta de ahorro a otra cuenta.
@@ -702,6 +709,9 @@ curl -X POST \
 > Respuesta:
 
 ```json
+{
+  ""
+}
 ```
 
 Servicio para hacer transacciones masivas de la cuenta de ahorro a otras cuentas.
@@ -802,6 +812,10 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+{
+  "error":false,
+  "message":"Éxito"
+}
 ```
 
 Servicio para autorizar las transacciones pendientes, una vez autorizada en automático procede la  dispersión a la cuenta destino.
@@ -897,6 +911,79 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+{
+  "resumen":
+  {
+    "descripcion":"-",
+    "monto":"0.02",
+    "tipo":"Cargo",
+    "fecha":"2021-09-07 16:05:09",
+    "estatus":"Aplicada",
+    "concepto":"cuenta CLABE",
+    "clave_rastreo":"AQPAY01520210907160509150775",
+    "no_referencia":"123456",
+    "validar_transferencia":"https://www.banxico.org.mx/cep/",
+    "folio_autorización":"151275889","password":"","vigencia":""
+  },
+  "alquimia": 
+  {
+    "nombre":"Alquimia Digital MX SAPI DE CV",
+    "calle_numero":"Cerrada Aniceto Ortega No. 623,",
+    "colonia":"Col. Del Valle Sur",
+    "cp":"03100",
+    "delegacion":"Benito Juárez",
+    "estado":"Ciudad de México",
+    "web":"www.alquimiapay.com"
+  },
+  "ordenante":
+  {
+    "comercio":"",
+    "categoria":"",
+    "nombre":"DESARROLLO SA  ",
+    "rfc":"AAGA920608P28",
+    "cuenta_eje":"1000000004600015",
+    "tipo_persona":"PERSONA MORAL",
+    "medio_pago":"SPEI STP - Alquimia PAY",
+    "clabe":"646180127301500000",
+    "referencia_ordenante":"",
+    "no_tarjeta":"","institucion":"STP"
+  },
+  "beneficiario":
+  {
+    "comercio":"",
+    "categoria":"",
+    "nombre":"Luis Martínez",
+    "tipo_persona":"PERSONA FÍSICA",
+    "rfc":"MAHL123456",
+    "curp":"",
+    "cuenta_eje":"127180013798506949",
+    "medio_pago":"SPEI STP - Alquimia PAY",
+    "no_tarjeta":"",
+    "institucion":"BANCO AZTECA",
+    "cuenta_destino":"127180013798506949"
+  },
+  "operador":
+  {
+    "nombre":"T*****A D*****O D*****O "
+  },
+  "autorizador":
+  {
+    "nombre":"T*****A D*****O D*****O "
+  },
+  "titulo_comprobante":
+  {
+    "titulo_comprobante1":"Comprobante de transacción",
+    "titulo_comprobante2":"SPEI",
+    "titulo_comprobante3":""
+  },
+  "adicionales":
+  {
+    "id_medio_pago":3,
+    "tipo_movimiento":31,
+    "monedero_padre":false,
+    "reversa_movimiento":false
+  }
+}
 ```
 
 Servicio que devuelve los datos únicamente de las transacciones hechas de la cuenta de ahorro, para hacer un comprobante.
@@ -980,6 +1067,18 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+{
+  "id_cliente":18332,
+  "nombre":"JORGE ALBERTO",
+  "apellido_paterno":"CERVANTES",
+  "apellido_materno":"ZAVALA",
+  "fecha_nacimiento":"2000-02-25",
+  "sexo":"M",
+  "email":"jcervantes@tecnocengroup.com",
+  "rfc":"CEZJ000225PK8",
+  "curp":"CEZJ000225HDFRVRA9",
+  "nacionalidad":"MX",
+  "tipo_usuario":"administrador"}
 ```
 
 Servicio que devuelve los datos del usuario con el cual generó el token o en sesión.
@@ -1060,6 +1159,25 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+[{
+  "id":1,
+  "nombre":"BANCOMEXT",
+  "codigo":"006",
+  "fecha_alta":"2020-02-20 16:27:22",
+  "fecha_actualizacion":"2020-02-20 16:27:22",
+  "activo":0,"_links":{"
+    self":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/catalogo-bancos/1"
+    },
+    "catalogo-bancos_collection":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/catalogo-bancos"
+    },
+    "curies":[{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/catalogo-bancos/1?expand={rel}",
+      "name":"expand","title":"Embeddable related resources."
+    }]
+  }
+}]
 ```
 
 Servicio que devuelve el listado del banco de acuerdo a la clave, primeros 3 dígitos.
@@ -1144,6 +1262,49 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+[{
+  "id_medio_pago":1,
+  "tipo_medio_pago":"1",
+  "nombre":"INNTEC",
+  "banco":"Monex",
+  "fecha_alta":"2020-02-20 00:00:00",
+  "fecha_actualizacion":"2022-01-07 13:41:25",
+  "proveedor_peticion":null,
+  "orden_listado":3,
+  "categoria":1,
+  "imagen":12384,
+  "view_image":"https://demomatic.alquimiadigital.mx/cpanel/index.php/api/v1/imagen/12384",
+  "_links":{
+    "self":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/medio-pago/1"
+    },
+    "medio-pago_collection":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/medio-pago"
+    },
+    "curies":[{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/medio-pago/1?expand={rel}",
+      "name":"expand","title":"Embeddable related resources."
+    }],
+    "expand:cuentaAhorroMedioPago":{
+      "href":"cuentaAhorroMedioPago"
+    },
+    "expand:configuracion_in":{
+      "href":"configuracion_in"
+    },
+    "expand:configuracion_out":{
+      "href":"configuracion_out"
+    },
+    "expand:configuracion_in_front":{
+      "href":"configuracion_in_front"
+    },
+    "expand:configuracion_out_front":{
+      "href":"configuracion_out_front"
+    },
+    "cuentaAhorroMedioPago":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/medio-pago/1/cuentaAhorroMedioPago"
+    }
+  }
+}]
 ```
 
 Servicio que devuelve el listado de los medios de pago asociados a la cuenta de ahorro.
@@ -1417,6 +1578,46 @@ curl -X GET \
 > Respuesta:
 
 ```json
+[{
+  "id":301,
+  "id_cuenta_ahorro":676,
+  "id_medio_pago":4,
+  "numero_referencia":null,
+  "estatus":null,
+  "fecha_alta":"2022-02-10 11:44:21",
+  "fecha_actualizacion":"2022-02-10 11:44:21",
+  "tipo_comision":1,
+  "valor_comision":"0.00",
+  "numero_maximo_transacciones":127,
+  "monto_maximo_transacciones":"100000.00",
+  "tipo_reseteo":1,"horas_reseteo":null,
+  "hora_inicio":"00:00",
+  "hora_fin":"23:59",
+  "calendario_transaccion":"1,2,3,4,5,6,0",
+  "no_cuenta_medio_pago":"659803000000268539",
+  "cuenta_eje":"0000000133-CD-0000000133-0000026784",
+  "tipo_cash":1,
+  "saldo_basado_medio_pago":1,
+  "activo":0,
+  "cuenta_hija":0,
+  "nombre_cobranza":"",
+  "_links":{
+    "self":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-medio-pago/301"
+    },
+    "cuenta-ahorro-medio-pago_collection":{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-medio-pago"
+    },
+    "curies":[{
+      "href":"http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-medio-pago/301?expand={rel}",
+      "name":"expand",
+      "title":"Embeddable related resources."
+    }],
+    "expand:cuenta-ahorro":{
+      "href":"cuenta-ahorro"
+    }  
+  }
+}]
 ```
 
 Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre

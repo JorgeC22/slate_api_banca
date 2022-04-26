@@ -61,11 +61,145 @@ Asi mismo las referencias **contexto** deberán ser sustituidas por dicho contex
   "Authorization: Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>"
 ```
 
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/token",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": "Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+    },
+    "data": {
+      "grant_type": "client_credentials"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/token',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/x-www-form-urlencoded',
+    'Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'grant_type=client_credentials'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Authorization': 'Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh',
+}
+conn.request("POST", "/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
 > Entorno Pruebas:
 
 ```shell
   curl -k -X POST <URL_BASE> -d "grant_type=client_credentials" -H \
   "Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/token",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": "Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+    },
+    "data": {
+      "grant_type": "client_credentials"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/token',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/x-www-form-urlencoded',
+    'Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'grant_type=client_credentials'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Authorization': 'Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh',
+}
+conn.request("POST", "/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+  "access_token": "eyJ4NXQiOiJNell4TW1Ga09…...",
+  "scope": "am_application_scope default",
+  "token_type": "Bearer",
+  "expires_in": 600
+}
+
 ```
 
 Para generar el token de Api Manager se realiza mediante un request con las credenciales y URL descrita para este propósito. 
@@ -83,14 +217,135 @@ los servicios de consumo del api en general podrán responder de forma adecuada 
 > Entorno Producción:
 
 ```shell
-  curl -k -X POST https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token \
+  curl -k -X POST https://banca.alquimiapay.com/cpanel/index.php/api/oauth2/token \
   -d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>"
 ```
+
+```javascript
+import http.client
+
+conn = http.client.HTTPSConnection("demomatic.alquimiadigital.mx")
+payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/cpanel/index.php/api/oauth2/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://banca.alquimiapay.com/cpanel/index.php/api/oauth2/token',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'grant_type=password&username=ejemplo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("banca.alquimiapay.com")
+payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/cpanel/index.php/api/oauth2/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
 > Entorno Pruebas:
 
 ```shell
   curl -k -X POST https://demomatic.alquimiadigital.mx/cpanel/index.php/api/oauth2/token \
   -d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>" 
+```
+
+```javascript
+import http.client
+
+conn = http.client.HTTPSConnection("demomatic.alquimiadigital.mx")
+payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/cpanel/index.php/api/oauth2/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://demomatic.alquimiadigital.mx/cpanel/index.php/api/oauth2/token',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'grant_type=password&username=ejemplo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("demomatic.alquimiadigital.mx")
+payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
+headers = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/cpanel/index.php/api/oauth2/token", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+"access_token": "0e22c85bc36bd7...",
+"expires_in": 86400,
+"token_type": "Bearer",
+"scope": null,
+"refresh_token": "23147c1fbcd51fbbefa..."
+}
 ```
 
 Para la generación del Token Alquimia, es necesario contar con credenciales de inicio de sesión y haber restablecido la 

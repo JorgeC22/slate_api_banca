@@ -68,7 +68,7 @@ var settings = {
     "timeout": 0,
     "headers": {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh"
+      "Authorization": "Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>"
     },
     "data": {
       "grant_type": "client_credentials"
@@ -97,7 +97,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/x-www-form-urlencoded',
-    'Authorization: Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh'
+    'Authorization: Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>'
   ),
 ));
 
@@ -114,7 +114,7 @@ conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
 payload = 'grant_type=client_credentials'
 headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
-  'Authorization': 'Basic TjJmdFFqZGVWTjd5RlQyMnA3ejJlV2tJQnVZYTpqOWQxZ0xZel9xekRHNmJhcXhzUFZNems0Sklh',
+  'Authorization': 'Basic <Al momento de pasar al ambiente productivo, se hace llegar este parámetro>',
 }
 conn.request("POST", "/token", payload, headers)
 res = conn.getresponse()

@@ -2690,7 +2690,7 @@ curl -X GET \
 ```javascript
 var settings = {
     "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
-    "method": "POST",
+    "method": "GET",
     "timeout": 0,
     "headers": {
       "Authorization": "Bearer <ACCESS_TOKEN>",
@@ -2720,7 +2720,7 @@ curl_setopt_array($curl, array(
   CURLOPT_TIMEOUT => 0,
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_POSTFIELDS => 'clave_rastreo=',
   CURLOPT_HTTPHEADER => array(
     'Authorization: Bearer <ACCESS_TOKEN>',
@@ -2745,7 +2745,7 @@ headers = {
   'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
   'Content-Type': 'application/x-www-form-urlencoded'
 }
-conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))

@@ -362,7 +362,7 @@ contraseña de la banca por primera vez.
 ### URL de la Banca
 
 * Demo: `https://demomatic.alquimiadigital.mx`
-* Producción: `https://banca.alquimiapay.com`
+* Producción: `https://vitae.alquimiadigital.mx`
 
 
 ### Http request

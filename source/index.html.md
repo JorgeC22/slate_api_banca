@@ -217,22 +217,30 @@ los servicios de consumo del api en general podrán responder de forma adecuada 
 > Entorno Producción:
 
 ```shell
-  curl -k -X POST https://banca.alquimiapay.com/cpanel/index.php/api/oauth2/token \
+  curl -k -X POST https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token \
   -d "grant_type=password&client_id=testclient&client_secret=testpass&username=<usuario>&password=<password>"
 ```
 
 ```javascript
-import http.client
-
-conn = http.client.HTTPSConnection("demomatic.alquimiadigital.mx")
-payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
-headers = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-conn.request("POST", "/cpanel/index.php/api/oauth2/token", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
+var settings = {
+    "url": "https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "grant_type": "password",
+      "username": "ejemplo@alquimiapay.com",
+      "password": "Tupassword",
+      "client_id": "testclient",
+      "client_secret": "testpass"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 ```
 
 ```php
@@ -241,7 +249,7 @@ print(data.decode("utf-8"))
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://banca.alquimiapay.com/cpanel/index.php/api/oauth2/token',
+  CURLOPT_URL => 'https://vitae.alquimiadigital.mx/cpanel/index.php/api/oauth2/token',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -264,7 +272,7 @@ echo $response;
 ```python
 import http.client
 
-conn = http.client.HTTPSConnection("banca.alquimiapay.com")
+conn = http.client.HTTPSConnection("vitae.alquimiadigital.mx")
 payload = 'grant_type=password&username=ejemplpo%40alquimiapay.com&password=Tupassword&client_id=testclient&client_secret=testpass'
 headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -2885,6 +2893,56 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+{
+  "id_cuenta_ahorro": "676",
+  "api_key": "3d8315c882c3b50a243204a55f258e86",
+  "ips": "192.168.100.200",
+  "url_notificacion": "192.168.0.40",
+  "medios_pago": "5",
+  "estatus": 1,
+  "usuario_alta": 18202,
+  "usuario_actualizacion": 18202,
+  "fecha_alta":{
+    "expression": "NOW()",
+    "params":[]
+  },
+  "fecha_actualizacion":{
+    "expression": "NOW()",
+    "params":[]
+  },
+  "id": 37,
+  "_links":{
+    "self":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico/37"
+    },
+    "otp-dinamico_collection":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico"
+    },
+    "cuenta-ahorro-cliente_collection":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente"
+    },
+    "cuentaAhorro_record":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676"
+    },
+    "curies":[{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico/37?expand={rel}",
+      "name": "expand",
+      "title": "Embeddable related resources."
+    }],
+    "expand:cuentaAhorro":{
+      "href": "cuentaAhorro"
+    },
+    "expand:usuarioAlta":{
+      "href": "usuarioAlta"
+    },
+    "cuentaAhorro":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676"
+    },
+    "usuarioAlta":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cliente/18202"
+    }
+  }
+}
 ```
 
 ### Https Request
@@ -2971,6 +3029,23 @@ print(data.decode("utf-8"))
 > Respuesta:
 
 ```json
+[
+  {
+    "id": 37,
+    "id_cuenta_ahorro": 676,
+    "api_key": "3d8315c882c3b50a243204a55f258e86",
+    "estatus": 1,
+    "ips": "192.168.100.200",
+    "url_notificacion": "192.168.0.40",
+    "medios_pago": "5",
+    "timestamp": "2022-04-08 12:23:29",
+    "usuario_alta": 18202,
+    "fecha_alta": "2022-04-08 12:23:29",
+    "usuario_actualizacion": 18202,
+    "fecha_actualizacion": "2022-04-08 12:23:29",
+    "_links":{"self":{"href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico/37"…}}
+  }
+]
 ```
 
 ### Https Request
@@ -3065,7 +3140,55 @@ print(data.decode("utf-8"))
 
 > Respuesta:
 
-```shell
+```json
+{
+  "id": 37,
+  "id_cuenta_ahorro": 676,
+  "api_key": "3d8315c882c3b50a243204a55f258e86",
+  "estatus": 1,
+  "ips": "187.190.4.61",
+  "url_notificacion": "https://eoalu7pjno7ijtk.m.pipedream.net",
+  "medios_pago": "3,4",
+  "timestamp": "2022-04-08 12:23:29",
+  "usuario_alta": 18202,
+  "fecha_alta": "2022-04-08 12:23:29",
+  "usuario_actualizacion": 18202,
+  "fecha_actualizacion":{
+    "expression": "NOW()",
+    "params":[]
+  },
+  "_links":{
+    "self":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico/37"
+    },
+    "otp-dinamico_collection":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico"
+    },
+    "cuenta-ahorro-cliente_collection":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente"
+    },
+    "cuentaAhorro_record":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676"
+    },
+    "curies":[{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676/otp-dinamico/37?expand={rel}",
+      "name": "expand",
+      "title": "Embeddable related resources."
+    }],
+    "expand:cuentaAhorro":{
+      "href": "cuentaAhorro"
+    },
+    "expand:usuarioAlta":{
+      "href": "usuarioAlta"
+    },
+    "cuentaAhorro":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cuenta-ahorro-cliente/676"
+    },
+    "usuarioAlta":{
+      "href": "http://demomatic.alquimiadigital.mx/cpanel/index.php/api/v2/cliente/18202"
+    }
+  }
+}
 ```
 
 ### Https Request

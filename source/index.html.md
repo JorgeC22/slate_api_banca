@@ -371,9 +371,8 @@ contraseña de la banca por primera vez.
 
 
 
-# Servicios
-
-## Cuentas de ahorro del cliente
+# Cuentas de ahorro/Wallett
+## Listar Cuentas
 
 ```shell
   curl -X GET \
@@ -485,7 +484,7 @@ page | int | Identificador para mostrar la página en la que estemos situados, d
 registros | int | Número de registros a recuperar, si no se coloca por default trae 20.
 
 
-## Saldo cuenta ahorro
+## Consulta de Saldo
 
 ```shell
 curl -X GET \
@@ -572,7 +571,7 @@ Parametro | Tipo | Descripción
 --------- | ------- | -----------
 no_cuenta | int | No. de cuenta CLABE emparejada a la cuenta de ahorro.
 
-## Movimientos
+## Consulta de Movimientos
 
 ```shell
 curl -X GET \
@@ -714,114 +713,10 @@ registros | int | Número de registros a recuperar, si no se coloca por default 
 fecha_inicio | string | Fecha inicio para filtrado de movimientos a partir de esta fecha, se debe enviar en formato: yyyy-mm-dd, ejemplo: 2021-10-01
 fecha_fin | string | Fecha fin para filtrado de movimientos hasta esta fecha, se debe enviar en formato: yyyy-mm-dd, ejemplo: 2021-10-30
 
-## Listado de Transferencias Pendientes
 
-```shell
-curl -X GET \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-	-H 'Content-Type: x-www-form-urlencoded' \
-	'<URL>/<contexto>/1.0.0/v2/ordenes-importador?expand=datos'
-```
+# Transacciones SPEI, Tarjeta o Misma Institución
 
-```javascript
-  var settings = {
-      "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100",
-      "method": "GET",
-      "timeout": 0,
-      "headers": {
-        "Authorization": "Bearer <ACCESS_TOKEN>",
-        "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>"
-      },
-    };
-    
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
-```
-
-```php
-  <?php
-
-  $curl = curl_init();
-
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'GET',
-    CURLOPT_HTTPHEADER => array(
-      'Authorization: Bearer <ACCESS_TOKEN>',
-      'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>'
-    ),
-  ));
-
-  $response = curl_exec($curl);
-
-  curl_close($curl);
-  echo $response;
-```
-
-```python
-import http.client
-
-conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
-payload = ''
-headers = {
-  'Authorization': 'Bearer <ACCESS_TOKEN>',
-  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
-}
-conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-```
-
-> Respuesta:
-
-```json
-{
- "id": 3141,
- "folio_orden": "233875789125435",
- "datos": "{\"cuenta_origen\":123,\"cuenta_eje\":\"100000000000000009\",\"medio_pago_origen\":4,\"medio_pago\":\"4\",\"cuenta_destino\":\"550000000000001\",\"importe\":\"0.02\",\"comision\":\"0.00\",\"total\":0.02,\"concepto\":\"test\",\"concepto_otro\":0,\"nombre_beneficiario\":\"usuario\",\"rfc_beneficiario\":\"NA\",\"email_beneficiario\":\"email@alquimiapay.com\",\"no_referencia\":\"100001\",\"id_cuenta_destino\":0,\"id_cliente_receptor\":0,\"id_tarjeta_receptora\":0}",
- "estatus": 3,
- "activo": 0,
- "fecha_alta": "2022-04-05 16:23:40",
- "fecha_actualizacion": "2022-04-05 16:23:40",
- "usuario_autorizador": 0,
- "fecha_autorizacion": null,
- "usuario_instructor": 12345,
- "fecha_instruccion": "2022-04-05 16:23:40",
- "detalle_error": null,
- "id_transaccion_ahorro_cliente": 0,
- "id_transaccion_spei": 0,
- "id_externo": 0,
- "_embedded":{
- "datos":{"cuenta_origen": 123, "cuenta_eje": "100000000000000009", "medio_pago_origen": 4, "medio_pago": "4",…}
-}
-
-```
-
-Servicio para listar las transferencias pendientes por la cuenta de ahorro del cliente.
-
-### Http Request
-
-`GET /1.0.0/v2/ordenes-importador`
-
-### Parametros
-
-
-Parametro | Tipo | Descripción
---------- | ------- | -----------
-id_cuenta | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
-page | int | Identificador para mostrar la página en la que estemos situados, de acuerdo a la cantidad de registros que se obtengan.
-registros | int | Número de registros a recuperar, si no se coloca por default trae 20.
-
-## Transacción uno a uno
+## Instruir Uno a Uno
 
 ```shell
 curl -X POST \
@@ -950,7 +845,7 @@ Nota: Toda tx instruida, posteriormente debe ser autorizada con el siguiente ser
 </aside>
 
 
-## Transacción Masiva
+## Instruir Por Lote
 
 ```shell
 curl -X POST \
@@ -1067,7 +962,8 @@ api_key | string | API Key generada para la cuenta de ahorro. (en caso de no usa
 id_cliente | string | Identificador del cliente, se obtiene del servicio Perfil del usuario.
 json_transacciones | json | Ejemplo de json: [{"cuenta_destino":"000000000000000001","importe":"0.02","concepto":"Demo","nombre_beneficiario":"Nombre","rfc_beneficiario":"Ejemplo000000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101010","concepto_2":"na","id_externo":"101001"}{"cuenta_destino":"000000000000000002","importe":"0.02","concepto":"Demo2","nombre_beneficiario":"Nombre","rfc_beneficiario":"Ejemplo000000","email_beneficiario":"demo@alquimiapay.com","no_referencia":"101011","concepto_2":"na","id_externo":"101002"}]
 
-## Autorizar Transacciones Pendientes
+## Confirmar Transacciones
+
 
 ```shell
 curl -X POST \
@@ -1167,6 +1063,637 @@ id_transaccion | int | Identificador que se obtiene del servicio de Listado de T
 accion | int | 1 => Autoriza las transacciones, 2 => Elimina las transacciones.
 id_cuenta | int | Id de la cuenta donde se realizaron las transacciones pendientes, se obtiene del servicios  Cuentas de ahorro del cliente.
 api_key | string | API Key generada para la cuenta de ahorro.
+
+
+# Transacciones ATM
+
+## Disposición en Cajero Automatico
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/dispersion-sin-tarjeta
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "cuenta_origen": "123",
+      "id_cliente": "12345",
+      "medio_pago": "7",
+      "importe": "0.02",
+      "concepto": "TEST",
+      "concepto_otro": "TEST_DOS",
+      "curp_beneficiario": "CURP_EJEMPLO_0000001",
+      "rfc_beneficiario": "RFC_EJEMPLO_01",
+      "telefono_beneficiario": "5500000000",
+      "api_key": "xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx",
+      "Nombre_beneficiario": "Nombre Ejemplo",
+      "apellido_paterno": "Apliido1",
+      "apellido_materno": "Apliido2",
+      "genero": "M",
+      "fecha_nacimiento": "2000-01-15",
+      "estado_nacimiento": "Estado"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=123&id_cliente=12345&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=CURP_EJEMPLO_0000001&rfc_beneficiario=RFC_EJEMPLO_01&telefono_beneficiario=5500000000&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx&Nombre_beneficiario=Hail%20Alejandro&apellido_paterno=Apliido1&apellido_materno=Apliido2&genero=M&fecha_nacimiento=2000-01-15&estado_nacimiento%0A=Estado',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=123&id_cliente=12345&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=CURP_EJEMPLO_0000001&rfc_beneficiario=RFC_EJEMPLO_01&telefono_beneficiario=5500000000&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx&Nombre_beneficiario=Nombre%20Ejemplo&apellido_paterno=Apliido1&apellido_materno=Apliido2&genero=M&fecha_nacimiento=2000-01-15&estado_nacimiento%0A=Estado'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/guardar-transacciones", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+  "error": false,
+  "id_transaccion": 1234,
+  "folio_orden": "123456",
+  "message": "Operación registrada con éxito. Estado: Pendiente.",
+  "pendiente": true,
+  "obj_res":[]
+}
+```
+
+Servicio para solicitar un retiro de efectivo en cajero automático sin tarjeta desde Alquimia Pay
+
+### Http Request
+
+`POST /1.0.0/v2/dispersion-sin-tarjeta`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+--------- | ------- | -----------
+cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
+importe | string | Importe de la transacción.
+concepto | string | Concepto de la transacción.
+concepto_otro | string | Concepto de la transacción si es que se ocupa un segundo concepto para la transacción.
+nombre_beneficiario | string | Nombre del Beneficiario.
+curp_beneficiario | string | CURP del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
+rfc_beneficiario | string | RFC del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
+telefono_beneficiario | int | Teléfono del Beneficiario.
+api_key | string | API Key generada para la cuenta de ahorro.
+nombre_beneficiario | string | Nombre del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+apellido_paterno | string | Apellido Paterno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+apellido_materno | string | Apellido Materno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+genero | string | Género del beneficiario, se envia M => en caso de masculino y F => en caso de femeninorequerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+fecha_nacimiento  | string | Fecha de nacimiento del beneficiario, se envía en formato: yyyy-mm-dd requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+estado_nacimiento | string | Estado de Nacimiento  del beneficiario, la lista de estados se encuentra en el servicio de catálogo estados,  requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
+
+
+## Instruir Por Lote
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/importador-transacciones-json
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "cuenta_origen": "123",
+      "id_cliente": "12345",
+      "json_transacciones": "[{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"CURP_EJEMPLO_0000001\",\"email_beneficiario\":\"ejemplo@alquimiapay.com\",\"celular_beneficiario\":\"5500000000\",\"concepto_dos\":\"na\",\"id_externo\":100001},{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"CURP_EJEMPLO_0000001\",\"email_beneficiario\":\"ejemplo@alquimiapay.com\",\"celular_beneficiario\":\"5500000000\",\"concepto_dos\":\"na\",\"id_externo\":100002}]",
+      "api_key": "xxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'cuenta_origen=123&id_cliente=12345&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22ejemplo%40alquimiapay.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22ejemplo%40alquimiapay.com.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'cuenta_origen=123&id_cliente=12345&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+```
+
+Servicio para solicitar varios retiros de efectivo en cajero automático sin tarjeta desde Alquimia Pay 
+
+### Http Request
+
+`POST /1.0.0/v2/importador-transacciones-json`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+--------- | ------- | -----------
+cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
+json_transacciones | text | Texto en formato JSON que tendrá los datos para el envío de disposición en cajero sin tarjeta, a continuación se presenta un ejemplo de la estructura del json:[{“importe":"0.02","concepto":"demojson","curp_beneficiario":"CURP_EJEMPLO_0000001","email_beneficiario":"ejemplo@alquimiapay.com","celular_beneficiario":"5500000000","concepto_dos":"na","id_externo": 100001},{“importe":"0.02","concepto":"demojson","curp_beneficiario":"CURP_EJEMPLO_0000001","email_beneficiario":"ejemplo@alquimiapay.com","celular_beneficiario":"5500000000","concepto_dos":"na","id_externo": 100002}]
+api_key | string | API Key generada para la cuenta de ahorro.
+
+
+
+
+## Cancelar Retiro ATM
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cancela-retiro-atm'
+
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "clave_rastreo": ""
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'clave_rastreo=',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'clave_rastreo='
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+  "error": true,
+  "message": "Error",
+  "respuesta_proveedor": {
+      "id_usuario_api": 4,
+      "fecha_alta": {
+          "expression": "NOW()",
+          "params": [
+          ]
+      },
+      "fecha_actualizacion": {
+          "expression": "NOW()",
+          "params": [
+          ]
+      },
+      "id": 52,
+      "folio_seguimiento": "NA",
+      "claveRastreo": {
+          "error": false,
+          "error_detalle": "00",
+          "error_encabezado": "00",
+          "msg": "Cancelación generada exitosamente",
+          "adicional": {
+              "error_detalle": [
+                  {
+                      ...
+                  },
+                  ...
+                  {
+                      ...
+                  }
+              ]
+          }
+      },
+      "_links": {
+          "self": {
+              "href": "http://localhost/homologacion_api/web/index.php/api/mediosv1/eje/52"
+          },
+          "eje_collection": {
+              "href": "http://localhost/homologacion_api/web/index.php/api/mediosv1/eje"
+          },
+          "curies": {
+              "href": "http://swagger.com/demo/{rel}",
+              "name": "docs",
+              "type": null,
+              "templated": true,
+              "profile": null,
+              "title": "Resource Documentation",
+              "hreflang": null
+          }
+      },
+      "http_code": 201
+  }
+}
+```
+
+### Http Request
+
+`POST /1.0.0/v2/cancela-retiro-atm`
+
+### Algunas consideraciones:
+
+* No podrá ser cancelada una orden de pago (retiro sin tarjeta) si no ha sido previamente confirmada y generada exitosamente.
+* Se establece un tiempo de 10 minutos para poder cancelar la orden desde la generación de la misma, en caso de intento de cancelación el recurso negara la solicitud.
+* Cuando se realiza petición de cancelación solo manda la instrucción a Santander de cancelar, sin embargo Santander tarda tiempo en cancelarla, para consultar estatus de la cancelación se crea otro servicio para consulta del estatus.
+
+### Parametros
+
+Parametros | Tipo | Descripción
+--------- | ------- | -----------
+clave_rastreo | string | REQUERIDO - Clave para cancelación del Retiro.
+
+
+## Estatus de Cancelación ATM
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/<contexto>/1.0.0/v2/cancela-retiro-atm'
+```
+
+```javascript
+var settings = {
+    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer <ACCESS_TOKEN>",
+      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "clave_rastreo": ""
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_POSTFIELDS => 'clave_rastreo=',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'clave_rastreo='
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+    "error": false,
+    "message": "Operación registrada con éxito.",
+    "respuesta_proveedor": {
+        "error": false,
+        "estatus_cancelacion": 20,
+        "msg": "La orden de pago ha sido cancelada exitosamente.",
+        "adicional": [
+        ]
+    }
+}
+```
+
+> En caso de error:
+
+```json
+{
+    "error": true,
+    "message": "No hay una orden de pago asociada a la clave de rastreo: 100000001",
+    "respuesta_proveedor": {
+        "code": 422,
+        "msj": "Error desde el proveedor Santander, {\"msg\":\"No hay una orden de pago asociada a la clave de rastreo: 100000001\",\"status\":422,\"error\":true}",
+        "contenido": {
+            "msg": "No hay una orden de pago asociada a la clave de rastreo: 100000001",
+            "status": 422,
+            "error": true
+        },
+        "http_code": 422
+    }
+}
+
+```
+
+Servicio para la consulta del estatus de la cancelación.
+
+### Http Request
+
+`GET /1.0.0/v2/cancela-retiro-atm`
+
+### Notas adicionales:
+
+En caso de que el servicio responda como exitoso, en el nodo estatus_cancelacion, viene uno de los posibles valores al cancelar la operación:
+
+Código | Descripción
+--------- | -----------
+10 | La orden de pago está sin cancelar
+20 | La orden de pago ha sido cancelada exitosamente.
+30 | La orden de pago está en proceso de cancelación.
+40 | Hay errores al generar la cancelación.
+50 | Hubo un error desconocido al cancelar la orden de pago.
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+clave_rastreo | string | REQUERIDO - Clave para cancelación del Retiro.
+
+# Servicios
+## Listar TX pendientes
+
+```shell
+curl -X GET \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+	-H 'Content-Type: x-www-form-urlencoded' \
+	'<URL>/<contexto>/1.0.0/v2/ordenes-importador?expand=datos'
+```
+
+```javascript
+  var settings = {
+      "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer <ACCESS_TOKEN>",
+        "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>"
+      },
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+```
+
+```php
+  <?php
+
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+      'Authorization: Bearer <ACCESS_TOKEN>',
+      'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>'
+    ),
+  ));
+
+  $response = curl_exec($curl);
+
+  curl_close($curl);
+  echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
+}
+conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/ordenes-importador?expand=datos&id_cuenta=123&page=1&registros=100", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+ "id": 3141,
+ "folio_orden": "233875789125435",
+ "datos": "{\"cuenta_origen\":123,\"cuenta_eje\":\"100000000000000009\",\"medio_pago_origen\":4,\"medio_pago\":\"4\",\"cuenta_destino\":\"550000000000001\",\"importe\":\"0.02\",\"comision\":\"0.00\",\"total\":0.02,\"concepto\":\"test\",\"concepto_otro\":0,\"nombre_beneficiario\":\"usuario\",\"rfc_beneficiario\":\"NA\",\"email_beneficiario\":\"email@alquimiapay.com\",\"no_referencia\":\"100001\",\"id_cuenta_destino\":0,\"id_cliente_receptor\":0,\"id_tarjeta_receptora\":0}",
+ "estatus": 3,
+ "activo": 0,
+ "fecha_alta": "2022-04-05 16:23:40",
+ "fecha_actualizacion": "2022-04-05 16:23:40",
+ "usuario_autorizador": 0,
+ "fecha_autorizacion": null,
+ "usuario_instructor": 12345,
+ "fecha_instruccion": "2022-04-05 16:23:40",
+ "detalle_error": null,
+ "id_transaccion_ahorro_cliente": 0,
+ "id_transaccion_spei": 0,
+ "id_externo": 0,
+ "_embedded":{
+ "datos":{"cuenta_origen": 123, "cuenta_eje": "100000000000000009", "medio_pago_origen": 4, "medio_pago": "4",…}
+}
+
+```
+
+Servicio para listar las transferencias pendientes por la cuenta de ahorro del cliente.
+
+### Http Request
+
+`GET /1.0.0/v2/ordenes-importador`
+
+### Parametros
+
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id_cuenta | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
+page | int | Identificador para mostrar la página en la que estemos situados, de acuerdo a la cantidad de registros que se obtengan.
+registros | int | Número de registros a recuperar, si no se coloca por default trae 20.
+
+
+
 
 ## Comprobante de transacción
 
@@ -1334,7 +1861,7 @@ Parametro | Tipo | Descripción
 id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
 id_transaccion | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
 
-## Perfil de usuario
+## Listar Perfil de Usuario
 
 ```shell
 curl -X POST \
@@ -1427,7 +1954,7 @@ Servicio que devuelve los datos del usuario con el cual generó el token o en se
 
 
 
-## Catalago de Bancos
+## Catalogos de Banco
 
 ```shell
 curl -X GET \
@@ -1783,7 +2310,7 @@ id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de
 cuenta_hija | int  | Indica que será una clabe de cobranza referenciada y se le debe enviar el valor true.
 nombre_cobranza | string | Es el nombre (alias) que tendrá la clabe de cobranza referenciada generada.
 
-## Listar CLABEs de Cobranza Referenciada de una Cuenta de Ahorro
+## Listar CLABEs de Cobranza Referenciada
 
 ```shell
 curl -X GET \
@@ -1894,7 +2421,7 @@ Parametros | Tipo | Descripción
 id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
 
 
-## Listas de Cuentas Hijas de un Cuenta Madre
+## Listar Cuentas Hijas
 
 ```shell
 curl -X GET \
@@ -2020,7 +2547,7 @@ id_cuenta_ahorro_padre | int | Identificador de la cuenta madre.
 
 
 
-## Consulta de Estatus de Transacción
+## Consulta de Estatus de TX
 
 ```shell
 curl -X GET \
@@ -2115,7 +2642,7 @@ id_transaccion | number | REQUERIDO - Para determinar el estatus de una transacc
 id_cuenta | number | REQUERIDO - Número de cuenta de la transacción
 
 
-## Consulta de Saldo por Tarjeta
+## Consulta Saldo de Tarjeta
 
 ```shell
 curl -X GET \
@@ -2205,234 +2732,6 @@ Parametros | Tipo | Descripción
 --------- | ------- | -----------
 numero de tarjeta | number | REQUERIDO - Para consultar el saldo de la tarjeta, sustituir las X por los números de la tarjeta.
 
-## Disposición en Cajero Automatico
-
-```shell
-curl -X POST \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-  -H 'Content-Type: x-www-form-urlencoded' \
-  '<URL>/<contexto>/1.0.0/v2/dispersion-sin-tarjeta
-```
-
-```javascript
-var settings = {
-    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": "Bearer <ACCESS_TOKEN>",
-      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "cuenta_origen": "123",
-      "id_cliente": "12345",
-      "medio_pago": "7",
-      "importe": "0.02",
-      "concepto": "TEST",
-      "concepto_otro": "TEST_DOS",
-      "curp_beneficiario": "CURP_EJEMPLO_0000001",
-      "rfc_beneficiario": "RFC_EJEMPLO_01",
-      "telefono_beneficiario": "5500000000",
-      "api_key": "xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx",
-      "Nombre_beneficiario": "Nombre Ejemplo",
-      "apellido_paterno": "Apliido1",
-      "apellido_materno": "Apliido2",
-      "genero": "M",
-      "fecha_nacimiento": "2000-01-15",
-      "estado_nacimiento": "Estado"
-    }
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-```
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/guardar-transacciones',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => 'cuenta_origen=123&id_cliente=12345&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=CURP_EJEMPLO_0000001&rfc_beneficiario=RFC_EJEMPLO_01&telefono_beneficiario=5500000000&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx&Nombre_beneficiario=Hail%20Alejandro&apellido_paterno=Apliido1&apellido_materno=Apliido2&genero=M&fecha_nacimiento=2000-01-15&estado_nacimiento%0A=Estado',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer <ACCESS_TOKEN>',
-    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
-    'Content-Type: application/x-www-form-urlencoded'
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-```
-
-```python
-import http.client
-
-conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
-payload = 'cuenta_origen=123&id_cliente=12345&medio_pago=7&importe=0.02&concepto=TEST&concepto_otro=TEST_DOS&curp_beneficiario=CURP_EJEMPLO_0000001&rfc_beneficiario=RFC_EJEMPLO_01&telefono_beneficiario=5500000000&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx&Nombre_beneficiario=Nombre%20Ejemplo&apellido_paterno=Apliido1&apellido_materno=Apliido2&genero=M&fecha_nacimiento=2000-01-15&estado_nacimiento%0A=Estado'
-headers = {
-  'Authorization': 'Bearer <ACCESS_TOKEN>',
-  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/guardar-transacciones", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-```
-
-> Respuesta:
-
-```json
-{
-  "error": false,
-  "id_transaccion": 1234,
-  "folio_orden": "123456",
-  "message": "Operación registrada con éxito. Estado: Pendiente.",
-  "pendiente": true,
-  "obj_res":[]
-}
-```
-
-Servicio para solicitar un retiro de efectivo en cajero automático sin tarjeta desde Alquimia Pay
-
-### Http Request
-
-`POST /1.0.0/v2/dispersion-sin-tarjeta`
-
-### Parametros
-
-Parametros | Tipo | Descripción
---------- | ------- | -----------
-cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
-id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
-medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
-importe | string | Importe de la transacción.
-concepto | string | Concepto de la transacción.
-concepto_otro | string | Concepto de la transacción si es que se ocupa un segundo concepto para la transacción.
-nombre_beneficiario | string | Nombre del Beneficiario.
-curp_beneficiario | string | CURP del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
-rfc_beneficiario | string | RFC del Beneficiario. Este campo es opcional y si no se cuenta con el dato se puede enviar en blanco pero se deben de llenar con los parámetros que tengan la etiqueta: requerido si no se cuenta con curp.
-telefono_beneficiario | int | Teléfono del Beneficiario.
-api_key | string | API Key generada para la cuenta de ahorro.
-nombre_beneficiario | string | Nombre del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-apellido_paterno | string | Apellido Paterno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-apellido_materno | string | Apellido Materno del beneficiario, requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-genero | string | Género del beneficiario, se envia M => en caso de masculino y F => en caso de femeninorequerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-fecha_nacimiento  | string | Fecha de nacimiento del beneficiario, se envía en formato: yyyy-mm-dd requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-estado_nacimiento | string | Estado de Nacimiento  del beneficiario, la lista de estados se encuentra en el servicio de catálogo estados,  requerido solamente si CURP y/o RFC se envían vacíos de lo contrario no es necesario este parámetro.
-
-
-## Disposición en Cajero Automatico JSON
-
-```shell
-curl -X POST \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-  -H 'Content-Type: x-www-form-urlencoded' \
-  '<URL>/<contexto>/1.0.0/v2/importador-transacciones-json
-```
-
-```javascript
-var settings = {
-    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": "Bearer <ACCESS_TOKEN>",
-      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "cuenta_origen": "123",
-      "id_cliente": "12345",
-      "json_transacciones": "[{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"CURP_EJEMPLO_0000001\",\"email_beneficiario\":\"ejemplo@alquimiapay.com\",\"celular_beneficiario\":\"5500000000\",\"concepto_dos\":\"na\",\"id_externo\":100001},{\"importe\":\"0.02\",\"concepto\":\"demojson\",\"curp_beneficiario\":\"CURP_EJEMPLO_0000001\",\"email_beneficiario\":\"ejemplo@alquimiapay.com\",\"celular_beneficiario\":\"5500000000\",\"concepto_dos\":\"na\",\"id_externo\":100002}]",
-      "api_key": "xxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx"
-    }
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-```
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => 'cuenta_origen=123&id_cliente=12345&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22ejemplo%40alquimiapay.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22ejemplo%40alquimiapay.com.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer <ACCESS_TOKEN>',
-    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
-    'Content-Type: application/x-www-form-urlencoded'
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-```
-
-```python
-import http.client
-
-conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
-payload = 'cuenta_origen=123&id_cliente=12345&json_transacciones=%5B%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100001%7D%2C%7B%22importe%22%3A%220.02%22%2C%22concepto%22%3A%22demojson%22%2C%22curp_beneficiario%22%3A%22CURP_EJEMPLO_0000001%22%2C%22email_beneficiario%22%3A%22aarellanes%40epica.solutions%22%2C%22celular_beneficiario%22%3A%225500000000%22%2C%22concepto_dos%22%3A%22na%22%2C%22id_externo%22%3A100002%7D%5D&api_key=xxxxxxxxxxxxxxxApiKeyxxxxxxxxxxxxx'
-headers = {
-  'Authorization': 'Bearer <ACCESS_TOKEN>',
-  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/importador-transacciones-json", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-```
-
-> Respuesta:
-
-```json
-```
-
-Servicio para solicitar varios retiros de efectivo en cajero automático sin tarjeta desde Alquimia Pay 
-
-### Http Request
-
-`POST /1.0.0/v2/importador-transacciones-json`
-
-### Parametros
-
-Parametros | Tipo | Descripción
---------- | ------- | -----------
-cuenta_origen | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
-id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario.
-medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago.
-json_transacciones | text | Texto en formato JSON que tendrá los datos para el envío de disposición en cajero sin tarjeta, a continuación se presenta un ejemplo de la estructura del json:[{“importe":"0.02","concepto":"demojson","curp_beneficiario":"CURP_EJEMPLO_0000001","email_beneficiario":"ejemplo@alquimiapay.com","celular_beneficiario":"5500000000","concepto_dos":"na","id_externo": 100001},{“importe":"0.02","concepto":"demojson","curp_beneficiario":"CURP_EJEMPLO_0000001","email_beneficiario":"ejemplo@alquimiapay.com","celular_beneficiario":"5500000000","concepto_dos":"na","id_externo": 100002}]
-api_key | string | API Key generada para la cuenta de ahorro.
 
 ## Webhooks
 
@@ -2525,290 +2824,6 @@ concepto | string | Indica el concepto de la transacción establecida por el Ord
 
 
 
-## Cancelacion Retiro ATM Santander
-
-```shell
-curl -X POST \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-  -H 'Content-Type: x-www-form-urlencoded' \
-  '<URL>/<contexto>/1.0.0/v2/cancela-retiro-atm'
-
-```
-
-```javascript
-var settings = {
-    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": "Bearer <ACCESS_TOKEN>",
-      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "clave_rastreo": ""
-    }
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-```
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => 'clave_rastreo=',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer <ACCESS_TOKEN>',
-    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
-    'Content-Type: application/x-www-form-urlencoded'
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-```
-
-```python
-import http.client
-
-conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
-payload = 'clave_rastreo='
-headers = {
-  'Authorization': 'Bearer <ACCESS_TOKEN>',
-  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-```
-
-> Respuesta:
-
-```json
-{
-  "error": true,
-  "message": "Error",
-  "respuesta_proveedor": {
-      "id_usuario_api": 4,
-      "fecha_alta": {
-          "expression": "NOW()",
-          "params": [
-          ]
-      },
-      "fecha_actualizacion": {
-          "expression": "NOW()",
-          "params": [
-          ]
-      },
-      "id": 52,
-      "folio_seguimiento": "NA",
-      "claveRastreo": {
-          "error": false,
-          "error_detalle": "00",
-          "error_encabezado": "00",
-          "msg": "Cancelación generada exitosamente",
-          "adicional": {
-              "error_detalle": [
-                  {
-                      ...
-                  },
-                  ...
-                  {
-                      ...
-                  }
-              ]
-          }
-      },
-      "_links": {
-          "self": {
-              "href": "http://localhost/homologacion_api/web/index.php/api/mediosv1/eje/52"
-          },
-          "eje_collection": {
-              "href": "http://localhost/homologacion_api/web/index.php/api/mediosv1/eje"
-          },
-          "curies": {
-              "href": "http://swagger.com/demo/{rel}",
-              "name": "docs",
-              "type": null,
-              "templated": true,
-              "profile": null,
-              "title": "Resource Documentation",
-              "hreflang": null
-          }
-      },
-      "http_code": 201
-  }
-}
-```
-
-### Http Request
-
-`POST /1.0.0/v2/cancela-retiro-atm`
-
-### Algunas consideraciones:
-
-* No podrá ser cancelada una orden de pago (retiro sin tarjeta) si no ha sido previamente confirmada y generada exitosamente.
-* Se establece un tiempo de 10 minutos para poder cancelar la orden desde la generación de la misma, en caso de intento de cancelación el recurso negara la solicitud.
-* Cuando se realiza petición de cancelación solo manda la instrucción a Santander de cancelar, sin embargo Santander tarda tiempo en cancelarla, para consultar estatus de la cancelación se crea otro servicio para consulta del estatus.
-
-### Parametros
-
-Parametros | Tipo | Descripción
---------- | ------- | -----------
-clave_rastreo | string | REQUERIDO - Clave para cancelación del Retiro.
-
-
-## Consulta de Estatus de Cancelación Retiro ATM Santander
-
-```shell
-curl -X GET \
-	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
-	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
-  -H 'Content-Type: x-www-form-urlencoded' \
-  '<URL>/<contexto>/1.0.0/v2/cancela-retiro-atm'
-```
-
-```javascript
-var settings = {
-    "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": "Bearer <ACCESS_TOKEN>",
-      "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    "data": {
-      "clave_rastreo": ""
-    }
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-```
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_POSTFIELDS => 'clave_rastreo=',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer <ACCESS_TOKEN>',
-    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
-    'Content-Type: application/x-www-form-urlencoded'
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-```
-
-```python
-import http.client
-
-conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
-payload = 'clave_rastreo='
-headers = {
-  'Authorization': 'Bearer <ACCESS_TOKEN>',
-  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
-  'Content-Type': 'application/x-www-form-urlencoded'
-}
-conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cancela-retiro-atm", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-```
-
-> Respuesta:
-
-```json
-{
-    "error": false,
-    "message": "Operación registrada con éxito.",
-    "respuesta_proveedor": {
-        "error": false,
-        "estatus_cancelacion": 20,
-        "msg": "La orden de pago ha sido cancelada exitosamente.",
-        "adicional": [
-        ]
-    }
-}
-```
-
-> En caso de error:
-
-```json
-{
-    "error": true,
-    "message": "No hay una orden de pago asociada a la clave de rastreo: 100000001",
-    "respuesta_proveedor": {
-        "code": 422,
-        "msj": "Error desde el proveedor Santander, {\"msg\":\"No hay una orden de pago asociada a la clave de rastreo: 100000001\",\"status\":422,\"error\":true}",
-        "contenido": {
-            "msg": "No hay una orden de pago asociada a la clave de rastreo: 100000001",
-            "status": 422,
-            "error": true
-        },
-        "http_code": 422
-    }
-}
-
-```
-
-Servicio para la consulta del estatus de la cancelación.
-
-### Http Request
-
-`GET /1.0.0/v2/cancela-retiro-atm`
-
-### Notas adicionales:
-
-En caso de que el servicio responda como exitoso, en el nodo estatus_cancelacion, viene uno de los posibles valores al cancelar la operación:
-
-Código | Descripción
---------- | -----------
-10 | La orden de pago está sin cancelar
-20 | La orden de pago ha sido cancelada exitosamente.
-30 | La orden de pago está en proceso de cancelación.
-40 | Hay errores al generar la cancelación.
-50 | Hubo un error desconocido al cancelar la orden de pago.
-
-### Parametros
-
-Parametro | Tipo | Descripción
---------- | ------- | -----------
-clave_rastreo | string | REQUERIDO - Clave para cancelación del Retiro.
 
 # API Key/Webhook
 

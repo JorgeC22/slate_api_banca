@@ -2736,46 +2736,6 @@ numero de tarjeta | number | REQUERIDO - Para consultar el saldo de la tarjeta, 
 ## Webhooks
 
 La siguiente estructura representa cómo Alquimia enviará las notificaciones a sus clientes cuando expongan una URL donde se dará aviso de abonos o sobre liquidaciones de spei out.
-
-### Notificacion de liquidación SPEI
-
-> Respuesta:
-
-```json
-{
-  "id"
-  "empresa": "Alias o nombre de la empresa o cuenta de ahorro",
-  "claveRastreo": "claveDeRastreo",
-  "monto" "100.00",
-  "estado": "string",//DISPERSADO,RECHAZADO,
-  "causaDevolucion": "CUENTA INEXISTENTE",
-  "tsLiquidacion": "2021-10-01 19:25:11.707",
-}
-```
-
-> En caso de error:
-
-```json
-{
-  "estado": 0,
-  "mensajeError": ""
-}
-```
-
-Se detona al momento que el participante SPEI notifica que la transferencia ha sido liquidada.
-
-### Parametros
-
-Parametro | Tipo | Descripción
---------- | ------- | -----------
-id | int(12) | Id asignado a la orden liquidada.
-empresa | string(15) | Nombre de la empresa o cuenta de ahorro "ALIAS".
-claveRastreo | string(50) | Clave de Rastreo.
-monto | float(19,2) | Monto de la transferencia.
-estado | string(10) | El estado de la orden, "RECHAZADO", "DISPERSADO"
-causaDevolucion | string(50) | Descripcion de la causa de la devolucion del pago. Catalogo motivo de rechazo.
-tsLiquidacion  | datetime | Contiene información en milisegundos de la fecha y hora de la liquidacon de la operación.
-
 ### Notificación de Transacciones
 
 > Respuesta:

@@ -21,6 +21,10 @@ code_clipboard: true
 meta:
   - name: description
     content: Documentation for the Kittn API
+
+meta:
+  - name: robots
+    content: noindex,nofollow
 ---
 
 # Introducción

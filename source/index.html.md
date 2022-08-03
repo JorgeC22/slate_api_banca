@@ -848,13 +848,22 @@ soft_token | string | Código generado en aplicativo AQPayToken
 Nota: Toda tx instruida, posteriormente debe ser autorizada con el siguiente servicio /1.0.0/v2/ordenes-importador
 </aside>
 
-### Http Request
+### Transferencia de cuenta madre a tarjetas AlquimiaPay
 
 `Para transacción de cuenta madre a tarjeta, se utilizan los mismos parámetros de la tabla de arriba, pero haciendo cambio de los siguientes valores.`
 
 Parametro | Tipo | Descripción
 --------- | ------- | -----------
 medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago. id_medio_pago": 2
+cuenta_destino | int | dentificador (id_cuenta_ahorro) que se obtiene del servicio https://wso2.alquimiapay.com/apialquimiapay/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=xxxx o el numero de tarjeta alquimiapay a 16 digitos
+
+### Transferencia entre tarjetas AlquimiaPay
+
+`Para transacción entre tarjetas, se utilizan los mismos parámetros de la tabla de arriba, pero haciendo cambio de los siguientes valores.`
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+medio_pago | int | Identificador del medio de pago, que tiene asociado la cuenta de ahorro, se obtiene del servicio Catálogo de medios de Pago. id_medio_pago": 5
 cuenta_destino | int | dentificador (id_cuenta_ahorro) que se obtiene del servicio https://wso2.alquimiapay.com/apialquimiapay/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=xxxx o el numero de tarjeta alquimiapay a 16 digitos
 
 ## Instruir Por Lote

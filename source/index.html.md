@@ -2538,9 +2538,6 @@ print(data.decode("utf-8"))
 ```
 
 Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre.
-sort: valor en forma ascendente o descendente, en donde se agrega “-” para traer los registros más recientes o alfabéticamente en caso de NO ir traerá desde el elemento más viejo.
-page: valor para paginar los resultados
-registro: número de elementos mostrar en la consulta, si no se especifica traerá 20 registros por default.
 
 
 ### Http Request
@@ -2552,6 +2549,9 @@ registro: número de elementos mostrar en la consulta, si no se especifica traer
 Parametros | Tipo | Descripción
 --------- | ------- | -----------
 id_cuenta_ahorro_padre | int | Identificador de la cuenta madre.
+sort | string | valor en forma ascendente o descendente, en donde se agrega “-” para traer los registros más recientes o alfabéticamente en caso de NO ir traerá desde el elemento más viejo.
+page | int | valor para paginar los resultados
+registros | int | número de elementos mostrar en la consulta, si no se especifica traerá 20 registros por default.
 
 
 

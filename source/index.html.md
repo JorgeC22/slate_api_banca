@@ -21,6 +21,10 @@ code_clipboard: true
 meta:
   - name: description
     content: Documentation for the Kittn API
+
+meta:
+  - name: robots
+    content: noindex,nofollow
 ---
 
 # Introducción
@@ -2746,12 +2750,12 @@ La siguiente estructura representa cómo Alquimia enviará las notificaciones a 
 
 ```json
 {
-	"id": 6621,
+	"id": "6621",
 	"no_cuenta_eje": "1000000000000001",
 	"tipo": 2,
 	"medioPago": "SPEI STP - Alquimia PAY",
 	"fechaOperacion": "2022-02-28 17:06:15",
-	"institucionOrdenante": 90646,
+	"institucionOrdenante": "90646",
 	"nombreOrdenante": "ALQUIMIA",
 	"tipoCuentaOrdenante": "1",
 	"cuentaOrdenante": "100000000000000001",
@@ -2769,7 +2773,7 @@ La siguiente estructura representa cómo Alquimia enviará las notificaciones a 
 
 Parametro | Tipo | Descripción
 --------- | ------- | -----------
-id | int | Identificador de la transacción.
+id | string | Identificador de la transacción.
 no_cuenta_eje | string | Número de Cuenta Eje asignado por la Banca.
 tipo | int | Indica el tipo de transacción, donde 1 = CARGO y 2 = ABONO.
 medioPago | string | Indica el nombre del Medio de Pago de la transacción.

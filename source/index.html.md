@@ -2428,12 +2428,12 @@ curl -X GET \
 	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
 	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
   -H 'Content-Type: x-www-form-urlencoded' \
-  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=<id_cuenta_ahorro_padre>'
+  '<URL>/<contexto>/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=<id_cuenta_ahorro_padre>&page=2&registros=5&sort=-fecha_alta'
 ```
 
 ```javascript
 var settings = {
-  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=123",
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=xxxx&page=2&registros=5&sort=-fecha_alta",
   "method": "GET",
   "timeout": 0,
   "headers": {
@@ -2453,7 +2453,7 @@ $.ajax(settings).done(function (response) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=123',
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=xxxx&page=2&registros=5&sort=-fecha_alta',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -2482,7 +2482,7 @@ headers = {
   'Authorization': 'Bearer <ACCESS_TOKEN>',
   'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>'
 }
-conn.request("GET", "/sanboxalquimiapay/1.0.0/v2/cuenta-ahorro-medio-pago?id_cuenta_ahorro=123", payload, headers)
+conn.request("GET", "/sanboxalquimiapay/1.0.0v2/cuenta-ahorro-cliente?id_cuenta_ahorro_padre=xxxx&page=2&registros=5&sort=-fecha_alta", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -2533,7 +2533,11 @@ print(data.decode("utf-8"))
 }]
 ```
 
-Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre
+Servicio que devuelve el listado de las cuentas hijas dada una cuenta madre.
+sort: valor en forma ascendente o descendente, en donde se agrega “-” para traer los registros más recientes o alfabéticamente en caso de NO ir traerá desde el elemento más viejo.
+page: valor para paginar los resultados
+registro: número de elementos mostrar en la consulta, si no se especifica traerá 20 registros por default.
+
 
 ### Http Request
 

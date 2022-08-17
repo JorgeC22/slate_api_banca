@@ -2808,6 +2808,108 @@ rfcCurpBeneficiario | string | Indica el RFC o CURP del beneficiario, es decir, 
 concepto | string | Indica el concepto de la transacción establecida por el Ordenante.
 
 
+## Bloqueo de tarjeta
+
+```shell
+curl -X POST \
+	-H 'Authorization: Bearer <ACCESS_TOKEN>' \
+	-H 'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>' \
+  -H 'Content-Type: x-www-form-urlencoded' \
+  '<URL>/bancaalquimiapay/1.0.0/v2/operaciones-tarjeta
+
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/operaciones-tarjeta",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer <ACCESS_TOKEN>",
+    "AuthorizationAlquimia": "Bearer <ACCESS_TOKEN_ALQUIMIA>",
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "data": {
+    "id_cliente": "123",
+    "id_cuenta_ahorro": "1234",
+    "no_tarjeta": "1234567890123456",
+    "operacion": "1",
+    "api_key": "xxxxxxxAPIKEYxxxxxxxx"
+  }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/sanboxalquimiapay/1.0.0/v2/operaciones-tarjeta',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'id_cliente=123&id_cuenta_ahorro=1234&no_tarjeta=1234567890123456&operacion=1&api_key=xxxxxxxAPIKEYxxxxxxxx',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer <ACCESS_TOKEN>',
+    'AuthorizationAlquimia: Bearer <ACCESS_TOKEN_ALQUIMIA>',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_cliente=123&id_cuenta_ahorro=1234&no_tarjeta=1234567890123456&operacion=1&api_key=xxxxxxxAPIKEYxxxxxxxx'
+headers = {
+  'Authorization': 'Bearer <ACCESS_TOKEN>',
+  'AuthorizationAlquimia': 'Bearer <ACCESS_TOKEN_ALQUIMIA>',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/sanboxalquimiapay/1.0.0/v2/operaciones-tarjeta", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+
+}
+```
+
+Servicio permite bloqueo de tarjetas de Visa - Alquimia
+
+### Http Request
+
+`POST /1.0.0/v2/operaciones-tarjeta`
+
+### Parametros
+
+Parametros | Tipo | Descripción
+--------- | ------- | -----------
+id_cliente | int | Identificador del usuario, se obtiene del servicio Perfil del usuario
+id_cuenta_ahorro | int  | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente
+no_tarjeta | string | No. de la tarjeta a bloquear
+operacion | int | Siempre será 1 para el bloqueo
+api_key | string | API Key generada para la cuenta de ahorro.
 
 
 # API Key/Webhook

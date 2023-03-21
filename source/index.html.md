@@ -2403,15 +2403,17 @@ Servicio permite crear cuentas de cobranza referenciada a la cuenta principal.
 
 ### Http Request
 
-`POST /1.0.0/v2/<id_cuenta_ahorro>/cuenta-ahorro-cliente`
+`POST /1.0.0/v2/cuenta-ahorro-cliente/<id_cuenta_ahorro>/referencia-cobro`
 
 ### Parametros
 
 Parametros | Tipo | Descripción
 --------- | ------- | -----------
-id_cuenta_ahorro | int | Identificador que se obtiene del servicio de Cuentas de ahorro del cliente.
-cuenta_hija | int  | Indica que será una clabe de cobranza referenciada y se le debe enviar el valor true.
-nombre_cobranza | string | Es el nombre (alias) que tendrá la clabe de cobranza referenciada generada.
+id_medio_pago | int | 18= Clabe Kushki 19= URL Kushki
+nombre_cobranza | string  |  Es el nombre (alias) que tendrá la cobranza referenciada generada.
+importe | decimal | Importe a recibir con dos decimales ejemplo 10.00
+vigencia | date | vigencia de la referencia formato: yyyy-mm-dd
+type | int | 1 = Referencia Unica 2 = Referencia Recurrente
 
 ## Listar CLABEs de Cobranza Referenciada
 

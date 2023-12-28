@@ -3153,7 +3153,7 @@ codigo_seguridad | string | OPCIONAL en caso de no usar api_key - Código genera
 soft_token | string | OPCIONAL en caso de no usar api_key - Código generado en aplicativo AQPayToken.
 api_key | string | API Key generada para la cuenta de ahorro.
 url_notificacion | string | OPCIONAL - Puede ser SOLO UNA IPv4 o URL.
-medio_pago | string | OPCIONAL - Es requerido en el momento de que se agrega el nodo url_notificacion. Se puede mandar más de un medio de pago, separado por coma, ejemplo: 1, 5, 8
+medios_pago | string | OPCIONAL - Es requerido en el momento de que se agrega el nodo url_notificacion. Se puede mandar más de un medio de pago, separado por coma, ejemplo: 1, 5, 8
 
 ## Listado
 

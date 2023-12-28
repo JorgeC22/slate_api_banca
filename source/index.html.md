@@ -3400,3 +3400,296 @@ Api_key | string | api key generado para la cuenta.
 url_notificacion | string | OPCIONAL - Puede ser SOLO UNA IPv4 o URL.
 id_otp | int | REQUERIDO - ID del OTP.
 actualizar | int | REQUERIDO - Siempre debe ser 1 cuando se requiera actualizar.
+
+
+# Pago de servicios
+
+## Listado de servicios
+```shell
+curl --location 'https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/servicio' \
+--header 'Authorization: Bearer {{token_Api_manager}}' \
+--header 'AuthorizationAlquimia: Bearer {{token_Alquimia}}'
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/servicio",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer {{token_Api_manager}}",
+    "AuthorizationAlquimia": "Bearer {{token_Alquimia}}"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/servicio',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer {{token_Api_manager}}',
+    'AuthorizationAlquimia: Bearer {{token_Alquimia}}'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = ''
+headers = {
+  'Authorization': 'Bearer {{token_Api_manager}}',
+  'AuthorizationAlquimia': 'Bearer {{token_Alquimia}}'
+}
+conn.request("GET", "/pagoservicios/1.0.0/v2/servicio", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+error: false,
+datos:[
+{
+"id": 1,
+"id_proveedor": 1,
+"nombre": "AGUAKAN (Cancun)",
+"fecha_alta": "2022-06-16 15:55:04",
+"fecha_actualizacion": "2022-06-16 15:55:04",
+"_embedded":{"productos":[{"id": 1, "id_servicio": 1, "nombre": "Agua Cancun (Mun. de Benito Juarez y de Isla Mujeres)",…},
+"_links":{"self":{"href": "http://pagoservicios.alquimiadigital.mx/index.php/api/v1/servicio/1"…},
+"datosProducto":{"1": "c"}
+},
+{
+"id": 2,
+"id_proveedor": 1,
+"nombre": "Aguas de Saltillo",
+"fecha_alta": "2022-06-16 15:55:04",
+"fecha_actualizacion": "2022-06-16 15:55:04",
+"_embedded":{"productos":[{"id": 2, "id_servicio": 2, "nombre": "Aguas de Saltillo",…},
+"_links":{"self":{"href": "http://pagoservicios.alquimiadigital.mx/index.php/api/v1/servicio/2"…},
+"datosProducto":{"2": "c"}
+},
+{
+"id": 3,
+"id_proveedor": 1,
+"nombre": "Amazon",
+"fecha_alta": "2022-06-16 15:55:04",
+"fecha_actualizacion": "2022-06-16 15:55:04",
+"_embedded":{"productos":[{"id": 3, "id_servicio": 3, "nombre": "Amazon $100",…},
+"_links":{"self":{"href": "http://pagoservicios.alquimiadigital.mx/index.php/api/v1/servicio/3"…},
+"datosProducto":{"3": "a", "4": "a", "5": "a", "6": "a",…}
+},
+]
+```
+
+servicio que nos permite listar los provedores para pagos de servicios.
+### Https Request
+
+`GET pagoservicios/1.0.0/v2/servicio`
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id_cliente | int | id de cliente alquimia
+id_servicio  | int | id del servicio
+servicio | string | nombre del proveedor
+
+## Pago de servicio
+
+
+```shell
+curl --location 'https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/pago' \
+--header 'Authorization: Bearer {{token_Api_manager}}' \
+--header 'AuthorizationAlquimia: Bearer {{token_Alquimia}}' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'id_cliente=12345' \
+--data-urlencode 'id_servicio=7' \
+--data-urlencode 'servicio=AT-T / Iusacell' \
+--data-urlencode 'id_producto=16' \
+--data-urlencode 'producto=Recarga $10' \
+--data-urlencode 'tipo_front=1' \
+--data-urlencode 'tipo_referencia=a' \
+--data-urlencode 'monto_cobro=10.0' \
+--data-urlencode 'monto_comision=0.0' \
+--data-urlencode 'comision_proveedor=0.0' \
+--data-urlencode 'referencia=123456789' \
+--data-urlencode 'telefono=7291559953' \
+--data-urlencode 'concepto=prueba pago de serv.' \
+--data-urlencode 'cuenta_ahorro=1000000000000001' \
+--data-urlencode 'codigo_seguridad=1234' \
+--data-urlencode 'token=1234' \
+--data-urlencode 'tipo_cuenta=3'
+```
+
+```javascript
+var settings = {
+  "url": "https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/pago",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer {{token_Api_manager}}",
+    "AuthorizationAlquimia": "Bearer {{token_Alquimia}}",
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "data": {
+    "id_cliente": "12345",
+    "id_servicio": "7",
+    "servicio": "AT-T / Iusacell",
+    "id_producto": "16",
+    "producto": "Recarga $10",
+    "tipo_front": "1",
+    "tipo_referencia": "a",
+    "monto_cobro": "10.0",
+    "monto_comision": "0.0",
+    "comision_proveedor": "0.0",
+    "referencia": "123456789",
+    "telefono": "7291559953",
+    "concepto": "prueba pago de serv.",
+    "cuenta_ahorro": "1000000000000001",
+    "codigo_seguridad": "1234",
+    "token": "1234",
+    "tipo_cuenta": "3"
+  }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://wso2.alquimiapay.com/pagoservicios/1.0.0/v2/pago',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => 'id_cliente=12345&id_servicio=7&servicio=AT-T%20%2F%20Iusacell&id_producto=16&producto=Recarga%20%2410&tipo_front=1&tipo_referencia=a&monto_cobro=10.0&monto_comision=0.0&comision_proveedor=0.0&referencia=123456789&telefono=7291559953&concepto=prueba%20pago%20de%20serv.&cuenta_ahorro=1000000000000001&codigo_seguridad=1234&token=1234&tipo_cuenta=3',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer {{token_Api_manager}}',
+    'AuthorizationAlquimia: Bearer {{token_Alquimia}}',
+    'Content-Type: application/x-www-form-urlencoded'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("wso2.alquimiapay.com")
+payload = 'id_cliente=12345&id_servicio=7&servicio=AT-T%20%2F%20Iusacell&id_producto=16&producto=Recarga%20%2410&tipo_front=1&tipo_referencia=a&monto_cobro=10.0&monto_comision=0.0&comision_proveedor=0.0&referencia=123456789&telefono=7291559953&concepto=prueba%20pago%20de%20serv.&cuenta_ahorro=1000000000000001&codigo_seguridad=1234&token=1234&tipo_cuenta=3'
+headers = {
+  'Authorization': 'Bearer {{token_Api_manager}}',
+  'AuthorizationAlquimia': 'Bearer {{token_Alquimia}}',
+  'Content-Type': 'application/x-www-form-urlencoded'
+}
+conn.request("POST", "/pagoservicios/1.0.0/v2/pago", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+> Respuesta:
+
+```json
+{
+"id_cliente": "2608454",
+"id_servicio": "7",
+"servicio": "AT-T / Iusacell",
+"id_producto": "16",
+"producto": "Recarga $10",
+"tipo_front": "1",
+"tipo_referencia": "a",
+"monto_cobro": "10.0",
+"monto_comision": "0.0",
+"comision_proveedor": "0.0",
+"referencia": "7291559953",
+"telefono": "7291559953",
+"concepto": "prueba devops",
+"cuenta_ahorro": "1000000000000001",
+"tipo_cuenta": "3",
+"estatus_pago": 6,
+"proveedor": "Gestopago",
+"id_usuario": 12345,
+"fecha_alta":{
+"expression": "now()",
+"params":[]
+},
+"fecha_actualizacion":{
+"expression": "now()",
+"params":[]
+},
+"id": 3893,
+"id_instructor": 2608454,
+"id_pago": null,
+"autorizacion": "559572",
+"folio_pago": "PPF2L20231227174519",
+"mensaje_pago": "Operacion realizada con exito"
+}
+```
+servicio que nos permite efectuar el pago del servicio seleccionado.
+### Https Request
+
+`POST /pagoservicios/1.0.0/v2/pago`
+
+### Parametros
+
+Parametro | Tipo | Descripción
+--------- | ------- | -----------
+id_cliente | int | id de cliente alquimia
+id_servicio  | int | id del servicio
+servicio | string | nombre del proveedor
+id_producto | int | id del producto
+producto | string | nombre del producto
+tipo_front | int | 1 cuando monto_cobro es el monto total del producto, 2 cuando monto_cobro es la comisión del producto
+tipo_referencia | string | a= numero telefonico, difernete de a = referencia de servicio a pagar.
+monto_cobro | float | monto del producto + monto de comisión dependiendo de tipo_front
+monto_comision | float | monto de comisión dependiendo de tipo_front
+comision_proveedor | float | siempre 0.0
+referencia | int | referencia  numérica que coloca el cliente
+telefono | int |  10 dígitos
+concepto | string | concepto del pago 
+cuenta_ahorro | int | número de cuenta Alquimia o tarjeta
+codigo_seguridad | int | código de seguridad del cliente
+token | int | token dinámico obtenido de la app Alquimiapay
+tipo_cuenta | int | siempre 3 - para cuenta de ahorro
